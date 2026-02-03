@@ -89,21 +89,13 @@ export default function LoginPage() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <form className="grid grid-cols-2 gap-4">
                 <Button
                     variant="outline"
                     className="w-full gap-2 border-primary/20 hover:bg-primary/10 hover:text-primary"
-                    onClick={() => {
-                        // Dynamically import action to avoid build issues strictly in client component if needed, 
-                        // but here we can't because it's an event handler. 
-                        // We need to move the action call to a separate client component or use a form action.
-                        // For simplicity, we'll use a form submission to a hidden endpoint or just call server action if creating a separate component.
-                        // Actually, Next.js server actions can be imported in Client Components.
-                        // Let's assume we import `loginAsDemo` at top.
-                    }}
                     formAction={async () => {
                         const { loginAsDemo } = await import('@/app/actions/demo')
-                        await loginAsDemo('SENDER', 'en') // Defaulting to EN for demo
+                        await loginAsDemo('SENDER', 'en')
                     }}
                 >
                     <Package2 size={16} />
@@ -114,13 +106,13 @@ export default function LoginPage() {
                     className="w-full gap-2 border-primary/20 hover:bg-primary/10 hover:text-primary"
                     formAction={async () => {
                         const { loginAsDemo } = await import('@/app/actions/demo')
-                        await loginAsDemo('DRIVER', 'en') // Defaulting to EN for demo
+                        await loginAsDemo('DRIVER', 'en')
                     }}
                 >
                     <Briefcase size={16} />
                     Demo Driver
                 </Button>
-            </div>
+            </form>
 
             <p className="text-center text-sm text-gray-400">
                 Don't have an account?{' '}
