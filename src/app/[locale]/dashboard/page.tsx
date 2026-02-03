@@ -15,8 +15,9 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
     let role = null
 
     // TEST CREDENTIALS BYPASS
-    // Forces specific roles for test emails (e.g. sender*@test.com -> SENDER)
-    if (user.email?.endsWith('@test.com')) {
+    // Forces specific roles based on email prefix (e.g. sender...@... -> SENDER)
+    // Works with ANY domain to bypass rate limits (e.g. sender.ali@gmail.com)
+    if (user.email) {
         if (user.email.startsWith('sender')) role = 'SENDER'
         else if (user.email.startsWith('driver')) role = 'DRIVER'
         else if (user.email.startsWith('admin')) role = 'ADMIN'
