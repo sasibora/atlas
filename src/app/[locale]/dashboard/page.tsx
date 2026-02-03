@@ -12,22 +12,37 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
     }
 
     // Fetch User Role
-    const { data: userData, error: userError } = await supabase
-        .from('users')
-        .select('role')
-        .eq('id', user.id)
-        .single() as { data: { role: 'SENDER' | 'DRIVER' | 'ADMIN' } | null, error: any }
+    let role = null
 
-    if (userError || !userData) {
+    // TEST CREDENTIALS BYPASS
+    // Forces specific roles for test emails to ensure immediate access without DB edits
+    if (user.email === 'sender@test.com') role = 'SENDER'
+    else if (user.email === 'driver@test.com') role = 'DRIVER'
+    else if (user.email === 'admin@test.com') role = 'ADMIN'
+
+    // If not a test user, fetch from DB
+    if (!role) {
+        const { data: userData, error: userError } = await supabase
+            .from('users')
+            .select('role')
+            .eq('id', user.id)
+            .single() as { data: { role: 'SENDER' | 'DRIVER' | 'ADMIN' } | null, error: any }
+
+        if (!userError && userData) {
+            role = userData.role
+        }
+    }
+
+    if (!role) {
         // Handle error (e.g., profile not setup)
-        console.error('User profile error:', userError)
+        console.error('User profile not found or role missing')
         redirect(`/${locale}/login`) // Fallback
     }
 
     // Redirect based on role
-    if (userData.role === 'DRIVER') {
+    if (role === 'DRIVER') {
         redirect(`/${locale}/driver/dashboard`)
-    } else if (userData.role === 'SENDER') {
+    } else if (role === 'SENDER') {
         redirect(`/${locale}/sender/dashboard`)
     } else {
         redirect(`/${locale}/`) // Default or Admin
