@@ -15,10 +15,12 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
     let role = null
 
     // TEST CREDENTIALS BYPASS
-    // Forces specific roles for test emails to ensure immediate access without DB edits
-    if (user.email === 'sender@test.com') role = 'SENDER'
-    else if (user.email === 'driver@test.com') role = 'DRIVER'
-    else if (user.email === 'admin@test.com') role = 'ADMIN'
+    // Forces specific roles for test emails (e.g. sender*@test.com -> SENDER)
+    if (user.email?.endsWith('@test.com')) {
+        if (user.email.startsWith('sender')) role = 'SENDER'
+        else if (user.email.startsWith('driver')) role = 'DRIVER'
+        else if (user.email.startsWith('admin')) role = 'ADMIN'
+    }
 
     // If not a test user, fetch from DB
     if (!role) {
