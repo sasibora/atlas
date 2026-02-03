@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checkout &amp; Payment Gateway - Atlas Connect</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00bdd6",
+                        "primary-hover": "#00a8be",
+                        "secondary": "#10b981", // Emerald accent
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0D1619", // User specified dark theme
+                        "surface-dark": "#1A262B", // User specified card bg
+                        "surface-highlight": "#233238",
+                        "border-color": "#2e646b",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0D1619; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2e646b; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00bdd6; 
+        }
+        
+        .glass-panel {
+            background: rgba(26, 38, 43, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased min-h-screen flex flex-col">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#20464b] bg-[#0D1619]/90 backdrop-blur-md px-6 py-4 lg:px-10">
+<div class="flex items-center gap-4 text-white">
+<div class="size-8 text-primary">
+<svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_543)">
+<path d="M42.1739 20.1739L27.8261 5.82609C29.1366 7.13663 28.3989 10.1876 26.2002 13.7654C24.8538 15.9564 22.9595 18.3449 20.6522 20.6522C18.3449 22.9595 15.9564 24.8538 13.7654 26.2002C10.1876 28.3989 7.13663 29.1366 5.82609 27.8261L20.1739 42.1739C21.4845 43.4845 24.5355 42.7467 28.1133 40.548C30.3042 39.2016 32.6927 37.3073 35 35C37.3073 32.6927 39.2016 30.3042 40.548 28.1133C42.7467 24.5355 43.4845 21.4845 42.1739 20.1739Z" fill="currentColor"></path>
+<path clip-rule="evenodd" d="M7.24189 26.4066C7.31369 26.4411 7.64204 26.5637 8.52504 26.3738C9.59462 26.1438 11.0343 25.5311 12.7183 24.4963C14.7583 23.2426 17.0256 21.4503 19.238 19.238C21.4503 17.0256 23.2426 14.7583 24.4963 12.7183C25.5311 11.0343 26.1438 9.59463 26.3738 8.52504C26.5637 7.64204 26.4411 7.31369 26.4066 7.24189C26.345 7.21246 26.143 7.14535 25.6664 7.1918C24.9745 7.25925 23.9954 7.5498 22.7699 8.14278C20.3369 9.32007 17.3369 11.4915 14.4142 14.4142C11.4915 17.3369 9.32007 20.3369 8.14278 22.7699C7.5498 23.9954 7.25925 24.9745 7.1918 25.6664C7.14534 26.143 7.21246 26.345 7.24189 26.4066ZM29.9001 10.7285C29.4519 12.0322 28.7617 13.4172 27.9042 14.8126C26.465 17.1544 24.4686 19.6641 22.0664 22.0664C19.6641 24.4686 17.1544 26.465 14.8126 27.9042C13.4172 28.7617 12.0322 29.4519 10.7285 29.9001L21.5754 40.747C21.6001 40.7606 21.8995 40.931 22.8729 40.7217C23.9424 40.4916 25.3821 39.879 27.0661 38.8441C29.1062 37.5904 31.3734 35.7982 33.5858 33.5858C35.7982 31.3734 37.5904 29.1062 38.8441 27.0661C39.879 25.3821 40.4916 23.9425 40.7216 22.8729C40.931 21.8995 40.7606 21.6001 40.747 21.5754L29.9001 10.7285ZM29.2403 4.41187L43.5881 18.7597C44.9757 20.1473 44.9743 22.1235 44.6322 23.7139C44.2714 25.3919 43.4158 27.2666 42.252 29.1604C40.8128 31.5022 38.8165 34.012 36.4142 36.4142C34.012 38.8165 31.5022 40.8128 29.1604 42.252C27.2666 43.4158 25.3919 44.2714 23.7139 44.6322C22.1235 44.9743 20.1473 44.9757 18.7597 43.5881L4.41187 29.2403C3.29027 28.1187 3.08209 26.5973 3.21067 25.2783C3.34099 23.9415 3.8369 22.4852 4.54214 21.0277C5.96129 18.0948 8.43335 14.7382 11.5858 11.5858C14.7382 8.43335 18.0948 5.9613 21.0277 4.54214C22.4852 3.8369 23.9415 3.34099 25.2783 3.21067C26.5973 3.08209 28.1187 3.29028 29.2403 4.41187Z" fill="currentColor" fill-rule="evenodd"></path>
+</g>
+<defs>
+<clippath id="clip0_6_543"><rect fill="white" height="48" width="48"></rect></clippath>
+</defs>
+</svg>
+</div>
+<h2 class="text-white text-xl font-black leading-tight tracking-[-0.015em]">Atlas Connect</h2>
+</div>
+<div class="flex flex-1 justify-end gap-6">
+<div class="hidden md:flex gap-3">
+<button class="group flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-surface-highlight hover:bg-surface-highlight/80 text-white transition-colors">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">notifications</span>
+</button>
+<button class="group flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-surface-highlight hover:bg-surface-highlight/80 text-white transition-colors">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">help</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-primary/20" data-alt="User profile picture with abstract gradient background" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCxzOH7duoeCpdFXYYx8ANisbzxGok9qIjAhec0U9xXbbM4NZ_j9ROhwXll_wYAIzIx2pei6gXE8ocTNb_Hz08Zk8Wc3Xnc2LvVoiRtJpNlxLdkP1sj_EkvHNCQ0cSEP3iRDtdLP_CTgoVrz7y2lhGfOvkf3EUmyzyNhCh_HGw6N7RyautAqcMGoLaVkzLu6MpnChzgJPMUCTFwMwWxgeHdUt4f1XHSmJVNd5KYuW9FtKthI4CZoarfIVmp4CAIEk50S-ooffnNveRp");'></div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full px-4 md:px-12 py-8 lg:py-12 flex justify-center">
+<div class="w-full max-w-[1280px] grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+<!-- Left Column: Payment Process -->
+<div class="lg:col-span-8 flex flex-col gap-8">
+<!-- Heading -->
+<div class="flex flex-col gap-2">
+<h1 class="text-white text-4xl md:text-5xl font-black leading-tight tracking-[-0.033em]">Checkout &amp; Payment</h1>
+<p class="text-[#8dc6ce] text-lg font-normal">Securely complete your shipment booking to Europe</p>
+</div>
+<!-- Payment Methods Section -->
+<section class="flex flex-col gap-5">
+<h2 class="text-white text-2xl font-bold tracking-tight">Payment Method</h2>
+<div class="flex flex-col gap-3" style="--radio-dot-svg: url('data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27rgb(0,189,214)%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3ccircle cx=%278%27 cy=%278%27 r=%273%27/%3e%3c/svg%3e');">
+<!-- Credit Card Option -->
+<label class="group relative flex items-start gap-4 rounded-xl border border-[#2e646b] bg-surface-dark p-5 cursor-pointer hover:border-primary/50 transition-all shadow-lg">
+<input checked="" class="mt-1 h-5 w-5 border-2 border-[#587f85] bg-transparent text-transparent checked:border-primary checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0 focus:ring-offset-0 checked:focus:border-primary" name="payment_method" type="radio"/>
+<div class="flex grow flex-col gap-1">
+<div class="flex justify-between items-center w-full">
+<p class="text-white text-base font-bold">Credit / Debit Card</p>
+<div class="flex gap-2 opacity-80">
+<span class="material-symbols-outlined text-white" style="font-size: 24px;">credit_card</span>
+</div>
+</div>
+<p class="text-[#8dc6ce] text-sm">Pay securely with Visa, Mastercard or Amex</p>
+</div>
+</label>
+<!-- Apple Pay Option -->
+<label class="group relative flex items-start gap-4 rounded-xl border border-[#2e646b] bg-surface-dark p-5 cursor-pointer hover:border-primary/50 transition-all shadow-lg">
+<input class="mt-1 h-5 w-5 border-2 border-[#587f85] bg-transparent text-transparent checked:border-primary checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0 focus:ring-offset-0 checked:focus:border-primary" name="payment_method" type="radio"/>
+<div class="flex grow flex-col gap-1">
+<div class="flex justify-between items-center w-full">
+<p class="text-white text-base font-bold">Apple Pay</p>
+<span class="material-symbols-outlined text-white" style="font-size: 24px;">phone_iphone</span>
+</div>
+<p class="text-[#8dc6ce] text-sm">Fast checkout with Apple Pay</p>
+</div>
+</label>
+<!-- Bank Transfer Option -->
+<label class="group relative flex items-start gap-4 rounded-xl border border-[#2e646b] bg-surface-dark p-5 cursor-pointer hover:border-primary/50 transition-all shadow-lg">
+<input class="mt-1 h-5 w-5 border-2 border-[#587f85] bg-transparent text-transparent checked:border-primary checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0 focus:ring-offset-0 checked:focus:border-primary" name="payment_method" type="radio"/>
+<div class="flex grow flex-col gap-1">
+<div class="flex justify-between items-center w-full">
+<p class="text-white text-base font-bold">Bank Transfer</p>
+<span class="material-symbols-outlined text-white" style="font-size: 24px;">account_balance</span>
+</div>
+<p class="text-[#8dc6ce] text-sm">Direct wire transfer (2-3 business days)</p>
+</div>
+</label>
+</div>
+</section>
+<!-- Secure Card Form -->
+<section class="glass-panel rounded-2xl p-6 md:p-8 flex flex-col gap-6 mt-2 relative overflow-hidden">
+<!-- Decorational Glow -->
+<div class="absolute -top-20 -right-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<h3 class="text-white text-lg font-bold">Card Details</h3>
+<div class="flex items-center gap-1 text-secondary text-xs font-bold uppercase tracking-wider bg-secondary/10 px-2 py-1 rounded">
+<span class="material-symbols-outlined text-sm">lock</span>
+                            Secure SSL
+                        </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<!-- Card Number -->
+<div class="md:col-span-2 flex flex-col gap-2">
+<label class="text-[#8dc6ce] text-sm font-medium">Card Number</label>
+<div class="flex w-full items-center rounded-lg bg-[#233238] border border-transparent focus-within:border-primary transition-colors">
+<input class="w-full bg-transparent border-none text-white placeholder-gray-500 focus:ring-0 h-12 px-4" placeholder="0000 0000 0000 0000" type="text"/>
+<div class="pr-4 text-[#8dc6ce]">
+<span class="material-symbols-outlined">credit_card</span>
+</div>
+</div>
+</div>
+<!-- Cardholder Name -->
+<div class="md:col-span-2 flex flex-col gap-2">
+<label class="text-[#8dc6ce] text-sm font-medium">Cardholder Name</label>
+<div class="flex w-full items-center rounded-lg bg-[#233238] border border-transparent focus-within:border-primary transition-colors">
+<input class="w-full bg-transparent border-none text-white placeholder-gray-500 focus:ring-0 h-12 px-4" placeholder="Full Name on Card" type="text"/>
+<div class="pr-4 text-[#8dc6ce]">
+<span class="material-symbols-outlined">person</span>
+</div>
+</div>
+</div>
+<!-- Expiry Date -->
+<div class="flex flex-col gap-2">
+<label class="text-[#8dc6ce] text-sm font-medium">Expiry Date</label>
+<div class="flex w-full items-center rounded-lg bg-[#233238] border border-transparent focus-within:border-primary transition-colors">
+<input class="w-full bg-transparent border-none text-white placeholder-gray-500 focus:ring-0 h-12 px-4" placeholder="MM / YY" type="text"/>
+<div class="pr-4 text-[#8dc6ce]">
+<span class="material-symbols-outlined">calendar_today</span>
+</div>
+</div>
+</div>
+<!-- CVV -->
+<div class="flex flex-col gap-2">
+<label class="text-[#8dc6ce] text-sm font-medium">CVV / CVC</label>
+<div class="flex w-full items-center rounded-lg bg-[#233238] border border-transparent focus-within:border-primary transition-colors">
+<input class="w-full bg-transparent border-none text-white placeholder-gray-500 focus:ring-0 h-12 px-4" placeholder="123" type="password"/>
+<div class="pr-4 text-[#8dc6ce]">
+<span class="material-symbols-outlined">help</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 mt-2">
+<div class="relative flex items-center">
+<input class="h-5 w-5 rounded border-[#587f85] bg-transparent text-primary focus:ring-offset-background-dark focus:ring-primary" type="checkbox"/>
+</div>
+<span class="text-sm text-[#8dc6ce]">Save card securely for future shipments</span>
+</div>
+</section>
+</div>
+<!-- Right Column: Summary -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Order Summary Card -->
+<div class="bg-surface-dark rounded-2xl p-6 lg:p-8 flex flex-col gap-6 sticky top-24 border border-[#2e646b]/30 shadow-2xl">
+<div class="flex items-center justify-between border-b border-[#2e646b]/50 pb-4">
+<h2 class="text-white text-xl font-bold">Shipment Summary</h2>
+<span class="text-[#8dc6ce] text-sm">#ORD-9923</span>
+</div>
+<!-- Route -->
+<div class="flex flex-col gap-4 relative">
+<!-- Route Line -->
+<div class="absolute left-[11px] top-8 bottom-3 w-0.5 bg-gradient-to-b from-primary to-secondary opacity-30"></div>
+<div class="flex gap-4 items-start">
+<div class="relative z-10 size-6 rounded-full bg-primary/20 flex items-center justify-center border border-primary shrink-0 mt-0.5">
+<div class="size-2 rounded-full bg-primary"></div>
+</div>
+<div class="flex flex-col">
+<span class="text-[#8dc6ce] text-xs font-semibold uppercase tracking-wider">Origin</span>
+<span class="text-white font-medium text-lg">Casablanca, MA</span>
+<span class="text-gray-500 text-xs mt-1">Sep 24, 10:00 AM</span>
+</div>
+</div>
+<div class="flex gap-4 items-start mt-2">
+<div class="relative z-10 size-6 rounded-full bg-secondary/20 flex items-center justify-center border border-secondary shrink-0 mt-0.5">
+<div class="size-2 rounded-full bg-secondary"></div>
+</div>
+<div class="flex flex-col">
+<span class="text-[#8dc6ce] text-xs font-semibold uppercase tracking-wider">Destination</span>
+<span class="text-white font-medium text-lg">Paris, FR</span>
+<span class="text-gray-500 text-xs mt-1">Sep 28, 04:00 PM</span>
+</div>
+</div>
+</div>
+<div class="h-px w-full bg-[#2e646b]/30 my-1"></div>
+<!-- Specs -->
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col p-3 rounded-lg bg-background-dark/50">
+<span class="text-gray-400 text-xs">Total Weight</span>
+<span class="text-white font-semibold">10.0 kg</span>
+</div>
+<div class="flex flex-col p-3 rounded-lg bg-background-dark/50">
+<span class="text-gray-400 text-xs">Service Type</span>
+<span class="text-white font-semibold">Express Air</span>
+</div>
+</div>
+<!-- Line Items -->
+<div class="flex flex-col gap-3 text-sm">
+<div class="flex justify-between text-gray-400">
+<span>Base Freight</span>
+<span class="text-white">2,100 MAD</span>
+</div>
+<div class="flex justify-between text-gray-400">
+<span>Fuel Surcharge</span>
+<span class="text-white">250 MAD</span>
+</div>
+<div class="flex justify-between text-secondary">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">verified_user</span>
+<span>Insurance</span>
+</div>
+<span>150 MAD</span>
+</div>
+</div>
+<div class="h-px w-full bg-[#2e646b]/50"></div>
+<!-- Total -->
+<div class="flex justify-between items-end">
+<span class="text-white text-lg font-medium">Total</span>
+<div class="text-right">
+<span class="block text-4xl font-black text-white tracking-tight">2,500 <span class="text-xl text-[#8dc6ce] font-bold">MAD</span></span>
+</div>
+</div>
+<!-- Pay Button -->
+<button class="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-background-dark font-bold text-lg py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(0,189,214,0.3)] hover:shadow-[0_0_30px_rgba(0,189,214,0.5)] active:scale-[0.98]">
+<span class="material-symbols-outlined">lock</span>
+                        Pay Now
+                    </button>
+<p class="text-center text-xs text-gray-500">
+                        By clicking "Pay Now", you agree to our <a class="text-[#8dc6ce] hover:underline" href="#">Terms of Service</a>.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+</body></html>

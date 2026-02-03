@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Atlas Connect - Shipment Tracking</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00bdd6",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0f2123", 
+                        "gunmetal": "#0D1619",
+                        "card-dark": "#1A262B",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "2xl": "2rem", "full": "9999px"},
+                    boxShadow: {
+                        'glow': '0 0 20px rgba(0, 189, 214, 0.5)',
+                        'glow-sm': '0 0 10px rgba(0, 189, 214, 0.3)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0D1619; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #20464b; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00bdd6; 
+        }
+        .text-glow {
+            text-shadow: 0 0 20px rgba(0, 189, 214, 0.3);
+        }
+        .glass-header {
+            background: rgba(13, 22, 25, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: rgba(26, 38, 43, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }@keyframes dash {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        .path-anim {
+            stroke-dasharray: 10;
+            animation: dash 20s linear infinite reverse;
+        }
+        .pulse-ring {
+            box-shadow: 0 0 0 0 rgba(0, 189, 214, 0.7);
+            animation: pulse-cyan 2s infinite cubic-bezier(0.66, 0, 0, 1);
+        }
+        @keyframes pulse-cyan {
+            to {
+                box-shadow: 0 0 0 10px rgba(0, 189, 214, 0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gunmetal text-white font-display overflow-x-hidden antialiased flex flex-col min-h-screen">
+<div class="fixed inset-0 z-0 opacity-10 pointer-events-none" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDdL8wbsDM1m6kbaH1G1FVb8KouI6tvmdC4xityl1PowThOJX2oiJWs0xt2EP-EEM2Ws0MUHFwIoMHF5Kd3JlIIrndjlK2bJIY_zl67kqhtLLi8ro9EQXaGE0XIghiTbuXlNfe0TAJ_hqK3q2XkcMgSzqxsS89s2gNJ42INpZwg0U71L6TbdQAq5VwH0xzohJuG0DK9hkliATo-rI_Iwg9PX7-SlPSyp4EradOgdo3iv3udRLSQ7x5MJ7J7VPsm2vDKgbO4zDQiyMc5'); background-size: cover; background-position: center;"></div>
+<div class="fixed inset-0 z-0 bg-gradient-to-b from-gunmetal via-gunmetal/95 to-gunmetal pointer-events-none"></div>
+<div class="relative z-10 flex flex-col flex-grow">
+<header class="glass-header sticky top-0 w-full z-50">
+<div class="max-w-[1400px] mx-auto px-6">
+<div class="flex items-center justify-between h-20">
+<div class="flex items-center gap-3 cursor-pointer group">
+<div class="size-8 text-primary transition-transform group-hover:scale-110">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_543)">
+<path d="M42.1739 20.1739L27.8261 5.82609C29.1366 7.13663 28.3989 10.1876 26.2002 13.7654C24.8538 15.9564 22.9595 18.3449 20.6522 20.6522C18.3449 22.9595 15.9564 24.8538 13.7654 26.2002C10.1876 28.3989 7.13663 29.1366 5.82609 27.8261L20.1739 42.1739C21.4845 43.4845 24.5355 42.7467 28.1133 40.548C30.3042 39.2016 32.6927 37.3073 35 35C37.3073 32.6927 39.2016 30.3042 40.548 28.1133C42.7467 24.5355 43.4845 21.4845 42.1739 20.1739Z" fill="currentColor"></path>
+<path clip-rule="evenodd" d="M7.24189 26.4066C7.31369 26.4411 7.64204 26.5637 8.52504 26.3738C9.59462 26.1438 11.0343 25.5311 12.7183 24.4963C14.7583 23.2426 17.0256 21.4503 19.238 19.238C21.4503 17.0256 23.2426 14.7583 24.4963 12.7183C25.5311 11.0343 26.1438 9.59463 26.3738 8.52504C26.5637 7.64204 26.4411 7.31369 26.4066 7.24189C26.345 7.21246 26.143 7.14535 25.6664 7.1918C24.9745 7.25925 23.9954 7.5498 22.7699 8.14278C20.3369 9.32007 17.3369 11.4915 14.4142 14.4142C11.4915 17.3369 9.32007 20.3369 8.14278 22.7699C7.5498 23.9954 7.25925 24.9745 7.1918 25.6664C7.14534 26.143 7.21246 26.345 7.24189 26.4066ZM29.9001 10.7285C29.4519 12.0322 28.7617 13.4172 27.9042 14.8126C26.465 17.1544 24.4686 19.6641 22.0664 22.0664C19.6641 24.4686 17.1544 26.465 14.8126 27.9042C13.4172 28.7617 12.0322 29.4519 10.7285 29.9001L21.5754 40.747C21.6001 40.7606 21.8995 40.931 22.8729 40.7217C23.9424 40.4916 25.3821 39.879 27.0661 38.8441C29.1062 37.5904 31.3734 35.7982 33.5858 33.5858C35.7982 31.3734 37.5904 29.1062 38.8441 27.0661C39.879 25.3821 40.4916 23.9425 40.7216 22.8729C40.931 21.8995 40.7606 21.6001 40.747 21.5754L29.9001 10.7285ZM29.2403 4.41187L43.5881 18.7597C44.9757 20.1473 44.9743 22.1235 44.6322 23.7139C44.2714 25.3919 43.4158 27.2666 42.252 29.1604C40.8128 31.5022 38.8165 34.012 36.4142 36.4142C34.012 38.8165 31.5022 40.8128 29.1604 42.252C27.2666 43.4158 25.3919 44.2714 23.7139 44.6322C22.1235 44.9743 20.1473 44.9757 18.7597 43.5881L4.41187 29.2403C3.29027 28.1187 3.08209 26.5973 3.21067 25.2783C3.34099 23.9415 3.8369 22.4852 4.54214 21.0277C5.96129 18.0948 8.43335 14.7382 11.5858 11.5858C14.7382 8.43335 18.0948 5.9613 21.0277 4.54214C22.4852 3.8369 23.9415 3.34099 25.2783 3.21067C26.5973 3.08209 28.1187 3.29028 29.2403 4.41187Z" fill="currentColor" fill-rule="evenodd"></path>
+</g>
+<defs>
+<clipPath id="clip0_6_543"><rect fill="white" height="48" width="48"></rect></clipPath>
+</defs>
+</svg>
+</div>
+<span class="text-xl font-bold tracking-tight">Atlas Connect</span>
+</div>
+<div class="hidden lg:flex items-center gap-8">
+<nav class="flex gap-6">
+<a class="text-sm font-medium text-gray-300 hover:text-white transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-medium text-white transition-colors border-b-2 border-primary pb-1" href="#">Shipments</a>
+<a class="text-sm font-medium text-gray-300 hover:text-white transition-colors" href="#">Fleet</a>
+<a class="text-sm font-medium text-gray-300 hover:text-white transition-colors" href="#">Billing</a>
+</nav>
+<div class="flex gap-4">
+<div class="size-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs cursor-pointer hover:bg-primary/30 transition-colors">
+                            AC
+                        </div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-[1400px] mx-auto p-6 lg:p-8 space-y-6">
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-3">
+<h1 class="text-3xl font-bold text-white tracking-tight">Tracking #AC-7829</h1>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold shadow-glow-sm">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+                        In Transit
+                    </span>
+</div>
+<p class="text-slate-400 text-sm mt-1">Order placed on Oct 24, 2023 via Premium Ground Shipping</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white px-4 py-2 rounded-lg hover:bg-white/5 transition-colors">
+<span class="material-symbols-outlined text-[20px]">print</span>
+                    Print
+                </button>
+<button class="flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white px-4 py-2 rounded-lg hover:bg-white/5 transition-colors">
+<span class="material-symbols-outlined text-[20px]">share</span>
+                    Share
+                </button>
+</div>
+</div>
+<div class="grid lg:grid-cols-3 gap-6 h-full">
+<div class="lg:col-span-2 flex flex-col gap-6">
+<div class="relative w-full h-[500px] rounded-2xl overflow-hidden border border-white/10 bg-gray-900 group shadow-2xl">
+<img alt="Route Map" class="w-full h-full object-cover opacity-50 grayscale transition-opacity duration-700 group-hover:opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6IRDna5pAATVuOugruHwOIVUCJFGUfVMbyCvUO5ZpM5V5SrH4xEOb8XYDEYF-m2itJyEEbBXXi2GuMNcIrlciPie0JRG21eOyA-JajmZj4b2W3_UsGZzeh78Hc7ODnBBoOeGVtRiGNtKUG8UtNN8Bp6hfIh__P3hjLmKv_mu3gfi6WDsQGsT49vIIXlBVVzo_KKrfn5IwGxWruW95HhcY4DH7unPkBB0ufJfYWEVLb4FTh3PIv2B9uf6SaQh3RrVGQsQcjMVV7Mie"/>
+<div class="absolute inset-0 bg-gradient-to-t from-gunmetal/80 via-transparent to-transparent"></div>
+<div class="absolute top-4 right-4 flex flex-col gap-2">
+<button class="w-10 h-10 bg-card-dark text-white rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors border border-white/10 shadow-lg">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="w-10 h-10 bg-card-dark text-white rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors border border-white/10 shadow-lg">
+<span class="material-symbols-outlined">remove</span>
+</button>
+</div>
+<div class="absolute inset-0 pointer-events-none">
+<svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 800 500">
+<defs>
+<filter height="140%" id="glow" width="140%" x="-20%" y="-20%">
+<feGaussianBlur result="blur" stdDeviation="4"></feGaussianBlur>
+<feComposite in="SourceGraphic" in2="blur" operator="over"></feComposite>
+</filter>
+<linearGradient id="routeGradient" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#00bdd6" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#00bdd6" stop-opacity="1"></stop>
+</linearGradient>
+</defs>
+<path class="path-anim opacity-80" d="M 550 50 Q 520 200 250 420" fill="none" filter="url(#glow)" stroke="url(#routeGradient)" stroke-linecap="round" stroke-width="4"></path>
+<circle cx="550" cy="50" fill="#fff" r="4"></circle>
+<text class="opacity-80" fill="white" font-size="12" font-weight="500" x="565" y="55">Paris, FR</text>
+<circle cx="250" cy="420" fill="#fff" r="4"></circle>
+<text class="opacity-80" fill="white" font-size="12" font-weight="500" x="160" y="425">Casablanca, MA</text>
+<g transform="translate(380, 250)"> 
+<circle class="opacity-50 animate-ping" fill="none" r="15" stroke="#00bdd6" stroke-width="2"></circle>
+<circle class="opacity-20" fill="url(#routeGradient)" r="30"></circle>
+<circle fill="#0D1619" r="12" stroke="#00bdd6" stroke-width="2"></circle>
+<foreignObject height="16" width="16" x="-8" y="-8">
+<span class="material-symbols-outlined text-[16px] text-primary block leading-none">local_shipping</span>
+</foreignObject>
+<g transform="translate(20, -10)">
+<rect fill="#0D1619" fill-opacity="0.8" height="24" rx="4" stroke="#ffffff20" width="90" x="0" y="0"></rect>
+<text fill="#00bdd6" font-size="10" font-weight="bold" x="10" y="16">CURRENT LOC</text>
+</g>
+</g>
+</svg>
+</div>
+</div>
+<div class="bg-card-dark rounded-2xl p-6 lg:p-8 border border-white/5 flex flex-col md:flex-row gap-8 justify-between items-center shadow-lg">
+<div class="flex items-center gap-4 w-full md:w-auto">
+<div class="relative">
+<img alt="Driver" class="w-16 h-16 rounded-full object-cover border-2 border-primary/30 p-1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQzqFd77eCYxiZZImAozuI4YjXWgvggsymqqU0BNQQtGnAP6LtyKJFpbkwj-Qh_TwVJ4ugIfaumIqJkF4Zz48_N6XyKUTAg_IOJ9joGyc1tUqL6uI_ZsC194Q2fvh_YYqLdjIgUI5Qr8gpNvYWGwCUlaHLisrB_bEUqIXhSTd53sj6R7GR2DRcR2HPLMmjW60-QoWMY7LgWOSwQWaSP87e7E7ATRCL_pYQKkljKnCkaj1f4nJ1_n0e5o7rn0T76k9ahcC4S5f1aSSG"/>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 rounded-full border-2 border-card-dark"></div>
+</div>
+<div>
+<h3 class="text-white font-bold text-lg">Hassan Benali</h3>
+<p class="text-slate-400 text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">star</span>
+                                4.9 Rating • Volvo FH16
+                            </p>
+</div>
+</div>
+<div class="hidden md:block w-px h-12 bg-white/10"></div>
+<div class="flex gap-8 w-full md:w-auto justify-around md:justify-start">
+<div class="flex flex-col gap-1">
+<span class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Est. Arrival</span>
+<span class="text-xl font-bold text-white">2d 4h</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Weight</span>
+<span class="text-xl font-bold text-white">10kg</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Content</span>
+<span class="text-xl font-bold text-white flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-primary">devices</span>
+                                Elec.
+                            </span>
+</div>
+</div>
+<div class="hidden md:block w-px h-12 bg-white/10"></div>
+<div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+<button class="bg-primary hover:bg-[#00a0b5] text-gunmetal font-bold py-3 px-6 rounded-xl transition-all hover:scale-105 flex items-center justify-center gap-2 shadow-glow-sm whitespace-nowrap">
+<span class="material-symbols-outlined text-[20px]">call</span>
+                            Contact Driver
+                        </button>
+<button class="bg-transparent border border-white/20 hover:border-primary/50 text-white hover:text-primary hover:bg-primary/5 font-semibold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 whitespace-nowrap">
+<span class="material-symbols-outlined text-[20px]">description</span>
+                            View Manifest
+                        </button>
+</div>
+</div>
+</div>
+<div class="lg:col-span-1 h-full">
+<div class="bg-card-dark/50 backdrop-blur-md border border-white/5 rounded-2xl p-6 lg:p-8 h-full flex flex-col">
+<h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">history</span>
+                        Shipment Timeline
+                    </h2>
+<div class="relative pl-4 space-y-8 flex-1">
+<div class="absolute left-[23px] top-2 bottom-2 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-slate-700"></div>
+<div class="relative flex gap-4 group">
+<div class="relative z-10 w-5 h-5 rounded-full bg-primary border-4 border-card-dark shadow-[0_0_10px_rgba(0,189,214,0.6)] mt-1"></div>
+<div>
+<h4 class="text-white font-bold text-base group-hover:text-primary transition-colors">Order Placed</h4>
+<p class="text-slate-400 text-sm mt-0.5">Paris, France</p>
+<p class="text-slate-500 text-xs mt-1">Oct 24, 09:30 AM</p>
+</div>
+</div>
+<div class="relative flex gap-4 group">
+<div class="relative z-10 w-5 h-5 rounded-full bg-primary border-4 border-card-dark shadow-[0_0_10px_rgba(0,189,214,0.6)] mt-1"></div>
+<div>
+<h4 class="text-white font-bold text-base group-hover:text-primary transition-colors">Picked Up</h4>
+<p class="text-slate-400 text-sm mt-0.5">Distribution Center, Paris</p>
+<p class="text-slate-500 text-xs mt-1">Oct 24, 02:15 PM</p>
+</div>
+</div>
+<div class="relative flex gap-4 group">
+<div class="relative z-10 w-5 h-5 rounded-full bg-primary border-4 border-card-dark shadow-[0_0_10px_rgba(0,189,214,0.6)] mt-1"></div>
+<div>
+<h4 class="text-white font-bold text-base group-hover:text-primary transition-colors">Customs Clearance</h4>
+<p class="text-slate-400 text-sm mt-0.5">Bordeaux, France</p>
+<p class="text-slate-500 text-xs mt-1">Oct 25, 08:45 AM</p>
+<span class="inline-block mt-2 px-2 py-0.5 bg-green-500/10 text-green-400 text-[10px] uppercase font-bold tracking-wider rounded border border-green-500/20">Cleared</span>
+</div>
+</div>
+<div class="relative flex gap-4">
+<div class="relative z-10 mt-1">
+<div class="absolute -inset-1 rounded-full bg-primary opacity-30 animate-ping"></div>
+<div class="relative w-5 h-5 rounded-full bg-gunmetal border-2 border-primary flex items-center justify-center">
+<div class="w-2 h-2 bg-primary rounded-full"></div>
+</div>
+</div>
+<div class="bg-white/5 p-3 rounded-xl border border-primary/20 w-full">
+<h4 class="text-primary font-bold text-base flex items-center gap-2">
+                                    In Transit
+                                    <span class="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+</h4>
+<p class="text-slate-300 text-sm mt-0.5">Approaching Madrid, Spain</p>
+<p class="text-slate-500 text-xs mt-1">Today, 10:30 AM</p>
+<div class="mt-3 w-full bg-gray-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[65%] rounded-full shadow-[0_0_10px_rgba(0,189,214,0.8)]"></div>
+</div>
+<p class="text-xs text-right text-slate-500 mt-1">65% Completed</p>
+</div>
+</div>
+<div class="relative flex gap-4 opacity-50">
+<div class="relative z-10 w-5 h-5 rounded-full bg-slate-700 border-4 border-card-dark mt-1"></div>
+<div>
+<h4 class="text-slate-300 font-medium text-base">Arrive at Hub</h4>
+<p class="text-slate-500 text-sm mt-0.5">Tangier, Morocco</p>
+<p class="text-slate-600 text-xs mt-1">Est. Oct 27</p>
+</div>
+</div>
+<div class="relative flex gap-4 opacity-50">
+<div class="relative z-10 w-5 h-5 rounded-full bg-slate-700 border-4 border-card-dark mt-1"></div>
+<div>
+<h4 class="text-slate-300 font-medium text-base">Delivered</h4>
+<p class="text-slate-500 text-sm mt-0.5">Casablanca, Morocco</p>
+<p class="text-slate-600 text-xs mt-1">Est. Oct 28</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

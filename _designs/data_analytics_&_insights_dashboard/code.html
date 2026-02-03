@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Atlas Connect - Analytics Dashboard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+            extend: {
+                colors: {
+                "primary": "#00BDD6",
+                "primary-dark": "#009bb0",
+                "accent": "#00BDD6", 
+                "secondary": "#10B981",
+                "background-light": "#f5f8f8",
+                "background-dark": "#0D1619",
+                "card-dark": "#1A262B",
+                "muted": "#566B74",
+                },
+                fontFamily: {
+                "display": ["Inter", "sans-serif"],
+                "body": ["Noto Sans", "sans-serif"],
+                },
+                borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(26, 38, 43, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        /* Custom scrollbar for dark theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0D1619; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2C3B42; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #44565F; 
+        }
+    </style>
+</head>
+<body class="bg-background-dark text-white font-display overflow-hidden">
+<div class="flex h-screen w-full bg-[#0D1619]">
+<!-- Side Navigation -->
+<aside class="hidden lg:flex flex-col w-72 h-full border-r border-[#1A262B] bg-[#0D1619]">
+<div class="flex flex-col h-full p-4 justify-between">
+<div class="flex flex-col gap-8">
+<!-- Branding -->
+<div class="flex items-center gap-3 px-2">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 bg-primary/20 flex items-center justify-center text-primary" data-alt="Atlas Connect Logo Abstract">
+<span class="material-symbols-outlined text-3xl">globe_uk</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-white text-lg font-bold leading-tight tracking-tight">Atlas Connect</h1>
+<p class="text-primary text-xs font-medium tracking-wide">LOGISTICS PLATFORM</p>
+</div>
+</div>
+<!-- Nav Items -->
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-[#1A262B] rounded-xl transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-[#1A262B] rounded-xl transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">local_shipping</span>
+<span class="text-sm font-medium">Logistics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-[#1A262B] rounded-xl transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">alt_route</span>
+<span class="text-sm font-medium">Routes</span>
+</a>
+<!-- Active State -->
+<a class="flex items-center gap-3 px-4 py-3 bg-[#1A262B] text-primary border-l-4 border-primary rounded-r-xl transition-colors" href="#">
+<span class="material-symbols-outlined fill-1">insights</span>
+<span class="text-sm font-bold">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-[#1A262B] rounded-xl transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">account_balance_wallet</span>
+<span class="text-sm font-medium">Finance</span>
+</a>
+</nav>
+</div>
+<!-- Bottom Settings -->
+<div class="flex flex-col gap-2 border-t border-[#1A262B] pt-4">
+<a class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-[#1A262B] rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+<div class="flex items-center gap-3 px-4 py-3 mt-2 bg-[#1A262B] rounded-xl cursor-pointer">
+<div class="size-8 rounded-full bg-cover bg-center" data-alt="User profile picture of a man" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuASB-lv_nHBZ3cfAb2qZScilT_VImBQLBVkiihS88A-SQ6B-sMpRtrrf60w8uZjkmp0sxwbvMiGCwfLbCRMlUHBKyLSckTeAgVDx8FvezEtbJjrX6cLozDK5adEo3XJ6l8_gRvrgyHikgfMMFHjcP_8m1gKodgwR8x5LiuFLNM1oohqaOckDRSo3IKfCJnyL2B682gIEgjKsBZKwER97zGRuMoH5mL1I6MX6cSxhL1j4kpiBHZhCBFI6TgSLtwqgTb3QZrvopgRQjtB");'></div>
+<div class="flex flex-col">
+<p class="text-white text-sm font-medium">Karim B.</p>
+<p class="text-xs text-gray-500">Logistics Manager</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Top Header -->
+<header class="h-16 border-b border-[#1A262B] bg-[#0D1619]/90 backdrop-blur-md flex items-center justify-between px-6 z-20 shrink-0">
+<div class="flex items-center gap-4 lg:hidden">
+<button class="text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="text-white text-lg font-bold">Atlas Connect</h2>
+</div>
+<div class="hidden lg:flex items-center gap-4 text-white">
+<h2 class="text-xl font-bold tracking-tight">Analytics &amp; Insights</h2>
+<div class="h-4 w-px bg-[#2C3B42]"></div>
+<span class="text-sm text-gray-400">Overview</span>
+</div>
+<div class="flex items-center gap-6">
+<!-- Search -->
+<div class="hidden md:flex items-center bg-[#1A262B] rounded-lg h-10 w-64 px-3 border border-transparent focus-within:border-primary/50 transition-colors">
+<span class="material-symbols-outlined text-gray-400">search</span>
+<input class="bg-transparent border-none text-sm text-white focus:ring-0 w-full placeholder-gray-500" placeholder="Search shipments, routes..." type="text"/>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-3">
+<button class="size-10 flex items-center justify-center rounded-lg hover:bg-[#1A262B] text-gray-400 hover:text-white transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full animate-pulse"></span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-lg hover:bg-[#1A262B] text-gray-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Scrollable Content Area -->
+<div class="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 scroll-smooth">
+<!-- Page Heading & Filters -->
+<div class="flex flex-col xl:flex-row xl:items-end justify-between gap-6">
+<div class="flex flex-col gap-2">
+<h1 class="text-3xl md:text-4xl font-black text-white tracking-tight">Performance Overview</h1>
+<p class="text-[#00BDD6] text-base font-normal">Real-time performance metrics and logistics insights for Europe &amp; Morocco.</p>
+</div>
+<!-- Glassmorphism Filter Bar -->
+<div class="glass-panel rounded-xl p-1.5 flex flex-wrap gap-1">
+<button class="px-4 py-2 rounded-lg bg-primary text-[#0D1619] text-sm font-bold shadow-lg shadow-primary/20">Last 24h</button>
+<button class="px-4 py-2 rounded-lg hover:bg-white/10 text-white text-sm font-medium transition-colors">Last 7 Days</button>
+<button class="px-4 py-2 rounded-lg hover:bg-white/10 text-white text-sm font-medium transition-colors">This Month</button>
+<div class="w-px bg-white/10 my-1 mx-1"></div>
+<button class="px-3 py-2 rounded-lg hover:bg-white/10 text-white flex items-center gap-2 text-sm font-medium transition-colors">
+<span>Custom Range</span>
+<span class="material-symbols-outlined text-lg">calendar_today</span>
+</button>
+<button class="px-3 py-2 rounded-lg bg-[#00BDD6]/10 text-[#00BDD6] hover:bg-[#00BDD6]/20 flex items-center gap-2 text-sm font-bold transition-colors ml-auto xl:ml-2">
+<span class="material-symbols-outlined text-lg">download</span>
+                        Export
+                    </button>
+</div>
+</div>
+<!-- Top Row: KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+<!-- KPI 1 -->
+<div class="bg-card-dark rounded-xl p-5 border border-white/5 relative overflow-hidden group hover:border-primary/30 transition-all duration-300">
+<div class="flex justify-between items-start mb-2 z-10 relative">
+<div>
+<p class="text-gray-400 text-sm font-medium">Total Earnings</p>
+<h3 class="text-3xl font-bold text-white mt-1">€124,500</h3>
+</div>
+<span class="flex items-center text-[#10B981] bg-[#10B981]/10 px-2 py-1 rounded text-xs font-bold">
+<span class="material-symbols-outlined text-sm mr-1">trending_up</span>
+                            +12.5%
+                        </span>
+</div>
+<!-- Background Chart -->
+<div class="absolute bottom-0 left-0 right-0 h-16 opacity-30 group-hover:opacity-50 transition-opacity">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 40">
+<path d="M0,35 Q10,35 20,20 T40,25 T60,10 T80,30 T100,5" fill="none" stroke="#00BDD6" stroke-width="2"></path>
+<lineargradient id="grad1" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#00BDD6;stop-opacity:0.2"></stop>
+<stop offset="100%" style="stop-color:#00BDD6;stop-opacity:0"></stop>
+</lineargradient>
+<path d="M0,35 Q10,35 20,20 T40,25 T60,10 T80,30 T100,5 V40 H0 Z" fill="url(#grad1)"></path>
+</svg>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-card-dark rounded-xl p-5 border border-white/5 relative overflow-hidden group hover:border-primary/30 transition-all duration-300">
+<div class="flex justify-between items-start mb-2 z-10 relative">
+<div>
+<p class="text-gray-400 text-sm font-medium">Active Shipments</p>
+<h3 class="text-3xl font-bold text-white mt-1">342</h3>
+</div>
+<span class="flex items-center text-[#10B981] bg-[#10B981]/10 px-2 py-1 rounded text-xs font-bold">
+<span class="material-symbols-outlined text-sm mr-1">trending_up</span>
+                            +5.2%
+                        </span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-16 opacity-30 group-hover:opacity-50 transition-opacity">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 40">
+<path d="M0,30 L20,35 L40,20 L60,25 L80,10 L100,20" fill="none" stroke="#00BDD6" stroke-width="2"></path>
+<path d="M0,30 L20,35 L40,20 L60,25 L80,10 L100,20 V40 H0 Z" fill="url(#grad1)"></path>
+</svg>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-card-dark rounded-xl p-5 border border-white/5 relative overflow-hidden group hover:border-primary/30 transition-all duration-300">
+<div class="flex justify-between items-start mb-2 z-10 relative">
+<div>
+<p class="text-gray-400 text-sm font-medium">Avg. Delivery Time</p>
+<h3 class="text-3xl font-bold text-white mt-1">2.4<span class="text-lg text-gray-500 font-normal ml-1">Days</span></h3>
+</div>
+<span class="flex items-center text-primary bg-primary/10 px-2 py-1 rounded text-xs font-bold">
+<span class="material-symbols-outlined text-sm mr-1">remove</span>
+                            0.0%
+                        </span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-16 opacity-30 group-hover:opacity-50 transition-opacity">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 40">
+<path d="M0,20 Q25,25 50,20 T100,20" fill="none" stroke="#00BDD6" stroke-dasharray="4" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-card-dark rounded-xl p-5 border border-white/5 relative overflow-hidden group hover:border-primary/30 transition-all duration-300">
+<div class="flex justify-between items-start mb-2 z-10 relative">
+<div>
+<p class="text-gray-400 text-sm font-medium">Success Rate</p>
+<h3 class="text-3xl font-bold text-white mt-1">98.2%</h3>
+</div>
+<span class="flex items-center text-[#F87171] bg-[#F87171]/10 px-2 py-1 rounded text-xs font-bold">
+<span class="material-symbols-outlined text-sm mr-1">trending_down</span>
+                            -0.4%
+                        </span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-16 opacity-30 group-hover:opacity-50 transition-opacity">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 40">
+<path d="M0,10 L20,10 L40,15 L60,10 L80,12 L100,5" fill="none" stroke="#00BDD6" stroke-width="2"></path>
+<path d="M0,10 L20,10 L40,15 L60,10 L80,12 L100,5 V40 H0 Z" fill="url(#grad1)"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Main Chart Area (2/3 width) -->
+<div class="lg:col-span-2 bg-card-dark rounded-xl border border-white/5 p-6 flex flex-col h-[500px]">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h3 class="text-lg font-bold text-white">Monthly Revenue &amp; Volume</h3>
+<p class="text-sm text-gray-400">Comparison of net revenue vs freight volume</p>
+</div>
+<div class="flex gap-2 text-xs font-medium">
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-primary"></span>
+<span class="text-gray-300">Revenue</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-secondary"></span>
+<span class="text-gray-300">Volume</span>
+</div>
+</div>
+</div>
+<!-- Chart Visualization (CSS Only Approximation) -->
+<div class="flex-1 w-full relative pt-4 pb-8 px-2 flex items-end justify-between gap-2 md:gap-4">
+<!-- Y-axis lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none pb-8">
+<div class="w-full h-px bg-white/5"></div>
+<div class="w-full h-px bg-white/5"></div>
+<div class="w-full h-px bg-white/5"></div>
+<div class="w-full h-px bg-white/5"></div>
+<div class="w-full h-px bg-white/5"></div>
+</div>
+<!-- Data Columns -->
+<!-- Jan -->
+<div class="flex-1 flex flex-col justify-end items-center gap-1 group h-full z-10">
+<div class="w-full relative h-[40%] flex justify-center gap-1">
+<div class="w-2 md:w-4 bg-primary rounded-t-sm h-[80%] hover:brightness-110 transition-all"></div> <!-- Revenue -->
+<div class="w-2 md:w-4 bg-secondary rounded-t-sm h-[60%] hover:brightness-110 transition-all opacity-80"></div> <!-- Volume -->
+</div>
+<span class="text-xs text-gray-500 mt-2 font-medium">Jan</span>
+</div>
+<!-- Feb -->
+<div class="flex-1 flex flex-col justify-end items-center gap-1 group h-full z-10">
+<div class="w-full relative h-[55%] flex justify-center gap-1">
+<div class="w-2 md:w-4 bg-primary rounded-t-sm h-[85%] hover:brightness-110 transition-all"></div>
+<div class="w-2 md:w-4 bg-secondary rounded-t-sm h-[70%] hover:brightness-110 transition-all opacity-80"></div>
+</div>
+<span class="text-xs text-gray-500 mt-2 font-medium">Feb</span>
+</div>
+<!-- Mar -->
+<div class="flex-1 flex flex-col justify-end items-center gap-1 group h-full z-10">
+<div class="w-full relative h-[45%] flex justify-center gap-1">
+<div class="w-2 md:w-4 bg-primary rounded-t-sm h-[60%] hover:brightness-110 transition-all"></div>
+<div class="w-2 md:w-4 bg-secondary rounded-t-sm h-[90%] hover:brightness-110 transition-all opacity-80"></div>
+</div>
+<span class="text-xs text-gray-500 mt-2 font-medium">Mar</span>
+</div>
+<!-- Apr -->
+<div class="flex-1 flex flex-col justify-end items-center gap-1 group h-full z-10">
+<div class="w-full relative h-[70%] flex justify-center gap-1">
+<div class="w-2 md:w-4 bg-primary rounded-t-sm h-[90%] hover:brightness-110 transition-all"></div>
+<div class="w-2 md:w-4 bg-secondary rounded-t-sm h-[65%] hover:brightness-110 transition-all opacity-80"></div>
+</div>
+<span class="text-xs text-gray-500 mt-2 font-medium">Apr</span>
+</div>
+<!-- May -->
+<div class="flex-1 flex flex-col justify-end items-center gap-1 group h-full z-10">
+<div class="w-full relative h-[85%] flex justify-center gap-1">
+<div class="w-2 md:w-4 bg-primary rounded-t-sm h-[75%] hover:brightness-110 transition-all"></div>
+<div class="w-2 md:w-4 bg-secondary rounded-t-sm h-[95%] hover:brightness-110 transition-all opacity-80"></div>
+</div>
+<span class="text-xs text-gray-500 mt-2 font-medium">May</span>
+</div>
+<!-- Jun -->
+<div class="flex-1 flex flex-col justify-end items-center gap-1 group h-full z-10">
+<div class="w-full relative h-[65%] flex justify-center gap-1">
+<div class="w-2 md:w-4 bg-primary rounded-t-sm h-[50%] hover:brightness-110 transition-all"></div>
+<div class="w-2 md:w-4 bg-secondary rounded-t-sm h-[70%] hover:brightness-110 transition-all opacity-80"></div>
+</div>
+<span class="text-xs text-gray-500 mt-2 font-medium">Jun</span>
+</div>
+<!-- Jul -->
+<div class="flex-1 flex flex-col justify-end items-center gap-1 group h-full z-10">
+<div class="w-full relative h-[90%] flex justify-center gap-1">
+<div class="w-2 md:w-4 bg-primary rounded-t-sm h-[95%] hover:brightness-110 transition-all"></div>
+<div class="w-2 md:w-4 bg-secondary rounded-t-sm h-[85%] hover:brightness-110 transition-all opacity-80"></div>
+</div>
+<span class="text-xs text-gray-500 mt-2 font-medium">Jul</span>
+</div>
+<!-- Overlay Line Chart SVG -->
+<div class="absolute inset-0 pointer-events-none pb-8 pl-4 pr-4">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 100 100">
+<!-- Dashed line simulating a target or average -->
+<path d="M0,40 L100,40" stroke="#566B74" stroke-dasharray="2" stroke-width="0.5"></path>
+<!-- Tooltip hint (visual only) -->
+<circle cx="86" cy="15" fill="#fff" r="1.5" stroke="#00BDD6" stroke-width="0.5"></circle>
+<rect fill="#1A262B" height="8" rx="1" stroke="#00BDD6" stroke-width="0.2" width="16" x="78" y="2"></rect>
+<text fill="#fff" font-family="Inter" font-size="3" text-anchor="middle" x="86" y="7">€42k</text>
+</svg>
+</div>
+</div>
+</div>
+<!-- Top Routes Sidebar (1/3 width) -->
+<div class="bg-card-dark rounded-xl border border-white/5 p-6 h-[500px] flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-bold text-white">Top Routes</h3>
+<button class="text-primary text-sm font-medium hover:text-white transition-colors">View All</button>
+</div>
+<div class="flex-1 overflow-y-auto pr-2 space-y-6">
+<!-- Route 1 -->
+<div class="group cursor-pointer">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-3">
+<div class="bg-[#2C3B42] rounded-full p-1.5">
+<span class="material-symbols-outlined text-primary text-sm">north_east</span>
+</div>
+<div>
+<p class="text-sm font-bold text-white">Casablanca <span class="text-gray-500 mx-1">→</span> Paris</p>
+<p class="text-xs text-gray-500">1,204 Shipments</p>
+</div>
+</div>
+<span class="text-sm font-bold text-white">€84k</span>
+</div>
+<div class="w-full bg-[#2C3B42] rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<!-- Route 2 -->
+<div class="group cursor-pointer">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-3">
+<div class="bg-[#2C3B42] rounded-full p-1.5">
+<span class="material-symbols-outlined text-primary text-sm">north_east</span>
+</div>
+<div>
+<p class="text-sm font-bold text-white">Tangier <span class="text-gray-500 mx-1">→</span> Madrid</p>
+<p class="text-xs text-gray-500">945 Shipments</p>
+</div>
+</div>
+<span class="text-sm font-bold text-white">€62k</span>
+</div>
+<div class="w-full bg-[#2C3B42] rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 65%"></div>
+</div>
+</div>
+<!-- Route 3 -->
+<div class="group cursor-pointer">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-3">
+<div class="bg-[#2C3B42] rounded-full p-1.5">
+<span class="material-symbols-outlined text-primary text-sm">north_east</span>
+</div>
+<div>
+<p class="text-sm font-bold text-white">Agadir <span class="text-gray-500 mx-1">→</span> London</p>
+<p class="text-xs text-gray-500">512 Shipments</p>
+</div>
+</div>
+<span class="text-sm font-bold text-white">€41k</span>
+</div>
+<div class="w-full bg-[#2C3B42] rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 45%"></div>
+</div>
+</div>
+<!-- Route 4 -->
+<div class="group cursor-pointer">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-3">
+<div class="bg-[#2C3B42] rounded-full p-1.5">
+<span class="material-symbols-outlined text-primary text-sm">north_east</span>
+</div>
+<div>
+<p class="text-sm font-bold text-white">Rabat <span class="text-gray-500 mx-1">→</span> Lyon</p>
+<p class="text-xs text-gray-500">320 Shipments</p>
+</div>
+</div>
+<span class="text-sm font-bold text-white">€28k</span>
+</div>
+<div class="w-full bg-[#2C3B42] rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 30%"></div>
+</div>
+</div>
+<!-- Route 5 -->
+<div class="group cursor-pointer">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-3">
+<div class="bg-[#2C3B42] rounded-full p-1.5">
+<span class="material-symbols-outlined text-primary text-sm">north_east</span>
+</div>
+<div>
+<p class="text-sm font-bold text-white">Marrakech <span class="text-gray-500 mx-1">→</span> Berlin</p>
+<p class="text-xs text-gray-500">180 Shipments</p>
+</div>
+</div>
+<span class="text-sm font-bold text-white">€19k</span>
+</div>
+<div class="w-full bg-[#2C3B42] rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 15%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Map Preview (Decorative) -->
+<div class="w-full h-64 bg-card-dark rounded-xl border border-white/5 overflow-hidden relative">
+<img class="w-full h-full object-cover opacity-30 grayscale hover:grayscale-0 transition-all duration-700" data-alt="Dark map visualization of Europe and North Africa logistics routes" data-location="Europe &amp; North Africa" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCekBc3hht93BSqs27eAp4oeIT21yyp_65P4nHMN-iQe0u-7ccsIxXyKNbx3wfInPxd3MIUSzrPsqkGwDIElCdxTjb5dNe9QM2zHOkMj1U7ia23aaXWBYDdEjHQPGJrFsDQ4UYQZlUJvegbs_2Wo6AbGQvDTznd3nYfnllAYiWM_LF1KaEJ5eqQRPaN9zOP2BfGEG95aYF7AZXQAzj9FXu8EPFRyJn0hP4l6SaMsGicBnYqQD7mgEuHowmewdv5JcJOfPFaWNpXktWC"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A262B] to-transparent"></div>
+<div class="absolute bottom-6 left-6 z-10">
+<h3 class="text-xl font-bold text-white">Live Fleet Tracking</h3>
+<p class="text-[#00BDD6] text-sm flex items-center gap-1">
+<span class="relative flex h-2 w-2 mr-1">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00BDD6] opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-[#00BDD6]"></span>
+</span>
+                        142 Vehicles currently in transit
+                    </p>
+</div>
+<div class="absolute right-6 bottom-6">
+<button class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 text-white px-4 py-2 rounded-lg text-sm font-bold transition-all">
+                        Open Map View
+                    </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

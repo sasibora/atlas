@@ -1,0 +1,104 @@
+{
+    "Hero": {
+        "title": "أرسل طرودك بين أوروبا والمغرب بكل <span class='text-primary text-glow'>ثقة</span>",
+        "subtitle": "ربط الأفراد ومهنيي النقل لخدمات لوجستية آمنة، موثوقة وشفافة عبر الحدود. تتبع فوري مشمول.",
+        "senderBtn": "أنا مرسل",
+        "driverBtn": "أنا ناقل"
+    },
+    "Navigation": {
+        "dashboard": "لوحة التحكم",
+        "shipments": "الشحنات",
+        "wallet": "المحفظة",
+        "login": "تسجيل الدخول",
+        "signup": "إنشاء حساب"
+    },
+    "Dashboard": {
+        "title": "لوحة تحكم السائق",
+        "welcome": "مرحباً بك مجدداً، استعد لتسليمك القادم.",
+        "walletBalance": "رصيد المحفظة",
+        "pendingRequests": "طلبات معلقة",
+        "urgentPickups": "عمليات التقاط عاجلة قريبة",
+        "completedJobs": "المهام المكتملة",
+        "last30Days": "آخر 30 يوماً",
+        "manifests": "المانيفستو",
+        "viewAll": "عرض الكل",
+        "topUp": "شحن الرصيد",
+        "activeRoutes": "المسارات النشطة",
+        "visualiseJourney": "تخيل رحلتك القادمة"
+    },
+    "Wallet": {
+        "title": "المحفظة وسجل المعاملات",
+        "subtitle": "إدارة أرباحك، شحن الرصيد، والمدفوعات.",
+        "availableBalance": "الرصيد المتاح",
+        "vsLastWeek": "مقارنة بالأسبوع الماضي",
+        "topUp": "شحن الرصيد",
+        "withdraw": "سحب",
+        "recentTransactions": "المعاملات الأخيرة",
+        "last30Days": "آخر 30 يوماً",
+        "filter": "تصفية",
+        "export": "تصدير",
+        "table": {
+            "type": "نوع المعاملة",
+            "date": "التاريخ والوقت",
+            "details": "المسار / التفاصيل",
+            "amount": "المبلغ"
+        },
+        "types": {
+            "payout": "سحب أموال",
+            "shipmentPayment": "دفع الشحنة",
+            "topup": "شحن رصيد",
+            "commission": "عمولة"
+        }
+    },
+    "Profile": {
+        "verifiedDriver": "سائق موثق",
+        "location": "الدار البيضاء، المغرب",
+        "bio": "متخصص في النقل المبرد عبر الممر الأوروبي المغاربي. يتقن الفرنسية والعربية والإنجليزية.",
+        "message": "رسالة",
+        "bookShipment": "حجز شحنة",
+        "trustScore": "نتيجة الثقة",
+        "outOf5": "من 5",
+        "topRated": "سائق عالي التقييم",
+        "stats": {
+            "shipments": "إجمالي الشحنات",
+            "successRate": "نسبة النجاح",
+            "memberSince": "عضو منذ"
+        },
+        "metrics": {
+            "onTime": "معدل التسليم في الوقت المحدد"
+        },
+        "reviews": {
+            "title": "المراجعات الأخيرة",
+            "viewAll": "عرض الكل"
+        }
+    },
+    "Sender": {
+        "title": "اعثر على <span class='text-primary text-glow'>شحنتك</span>",
+        "search": {
+            "from": "من",
+            "to": "إلى",
+            "date": "التاريخ",
+            "btn": "بحث",
+            "placeholderFrom": "موقع الاستلام",
+            "placeholderTo": "الوجهة",
+            "placeholderDate": "اختر التاريخ"
+        },
+        "results": {
+            "title": "السائقون المتاحون",
+            "verified": "موثق",
+            "pro": "محترف",
+            "fleet": "أسطول",
+            "trips": "رحلات",
+            "pickup": "استلام",
+            "dropoff": "تسليم",
+            "offerPrice": "السعر المعروض",
+            "bookNow": "احجز الآن",
+            "emptyTitle": "لم تجد تطابقاً؟",
+            "emptyText": "انشر طلب شحنتك ودع السائقين يتواصلون معك.",
+            "createRequest": "إنشاء طلب"
+        },
+        "map": {
+            "popularRoutes": "المسارات الشائعة"
+        }
+    }
+}

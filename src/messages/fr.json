@@ -1,0 +1,104 @@
+{
+    "Hero": {
+        "title": "Envoyez vos colis entre l'Europe & le Maroc en toute <span class='text-primary text-glow'>Confiance</span>",
+        "subtitle": "Connecter les particuliers et les professionnels du transport pour une logistique transfrontalière sécurisée, fiable et transparente. Suivi en temps réel inclus.",
+        "senderBtn": "Je suis Expéditeur",
+        "driverBtn": "Je suis Transporteur"
+    },
+    "Navigation": {
+        "dashboard": "Tableau de Bord",
+        "shipments": "Expéditions",
+        "wallet": "Portefeuille",
+        "login": "Se Connecter",
+        "signup": "S'inscrire"
+    },
+    "Dashboard": {
+        "title": "Tableau de Bord Chauffeur",
+        "welcome": "Bon retour, préparez-vous pour votre prochaine livraison.",
+        "walletBalance": "Solde du Portefeuille",
+        "pendingRequests": "Demandes en Attente",
+        "urgentPickups": "Ramassages urgents à proximité",
+        "completedJobs": "Missions Terminées",
+        "last30Days": "30 derniers jours",
+        "manifests": "Manifestes",
+        "viewAll": "Voir Tout",
+        "topUp": "Recharger",
+        "activeRoutes": "Itinéraires Actifs",
+        "visualiseJourney": "Visualisez votre trajet à venir"
+    },
+    "Wallet": {
+        "title": "Portefeuille & Historique",
+        "subtitle": "Gérez vos revenus, recharges et paiements.",
+        "availableBalance": "Solde Disponible",
+        "vsLastWeek": "vs la semaine dernière",
+        "topUp": "Recharger",
+        "withdraw": "Retirer",
+        "recentTransactions": "Transactions Récentes",
+        "last30Days": "30 derniers jours",
+        "filter": "Filtrer",
+        "export": "Exporter",
+        "table": {
+            "type": "Type de Transaction",
+            "date": "Date & Heure",
+            "details": "Itinéraire / Détails",
+            "amount": "Montant"
+        },
+        "types": {
+            "payout": "Retrait",
+            "shipmentPayment": "Paiement Livraison",
+            "topup": "Recharge",
+            "commission": "Commission"
+        }
+    },
+    "Profile": {
+        "verifiedDriver": "Chauffeur Vérifié",
+        "location": "Casablanca, Maroc",
+        "bio": "Spécialisé dans le transport frigorifique sur le corridor Euro-Maghreb. Parle couramment français, arabe et anglais.",
+        "message": "Message",
+        "bookShipment": "Réserver",
+        "trustScore": "Score de Confiance",
+        "outOf5": "sur 5",
+        "topRated": "Chauffeur Top Noté",
+        "stats": {
+            "shipments": "Expéditions Totales",
+            "successRate": "Taux de Succès",
+            "memberSince": "Membre Depuis"
+        },
+        "metrics": {
+            "onTime": "Taux de Livraison à l'Heure"
+        },
+        "reviews": {
+            "title": "Avis Récents",
+            "viewAll": "Voir tout"
+        }
+    },
+    "Sender": {
+        "title": "Trouvez votre <span class='text-primary text-glow'>Transport</span>",
+        "search": {
+            "from": "De",
+            "to": "À",
+            "date": "Date",
+            "btn": "Rechercher",
+            "placeholderFrom": "Lieu de ramassage",
+            "placeholderTo": "Destination",
+            "placeholderDate": "Date"
+        },
+        "results": {
+            "title": "Chauffeurs Disponibles",
+            "verified": "Vérifié",
+            "pro": "Pro",
+            "fleet": "Flotte",
+            "trips": "trajets",
+            "pickup": "Départ",
+            "dropoff": "Arrivée",
+            "offerPrice": "Prix Offre",
+            "bookNow": "Réserver",
+            "emptyTitle": "Pas de correspondance ?",
+            "emptyText": "Publiez votre demande et laissez les chauffeurs venir à vous.",
+            "createRequest": "Créer une Demande"
+        },
+        "map": {
+            "popularRoutes": "Itinéraires Populaires"
+        }
+    }
+}

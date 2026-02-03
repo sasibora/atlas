@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Atlas Connect - User Profile</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dd7f2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0D1619", 
+                        "card-dark": "#1A262B",
+                        "border-dark": "#2A3C42",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0D1619; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A3C42; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3A4C52; 
+        }
+        
+        /* Conic gradient for the gauge */
+        .gauge-circle {
+            background: conic-gradient(#0dd7f2 98%, #2A3C42 0);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display antialiased selection:bg-primary/30">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Navbar -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-border-dark bg-[#0D1619]/80 backdrop-blur-md px-4 py-3 md:px-10">
+<div class="flex items-center gap-4 text-white">
+<div class="flex items-center justify-center size-10 rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-2xl">local_shipping</span>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Atlas Connect</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-400 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Dashboard</a>
+<a class="text-slate-400 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Shipments</a>
+<a class="text-slate-400 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Network</a>
+<a class="text-white text-sm font-medium leading-normal border-b-2 border-primary pb-0.5" href="#">Profile</a>
+</nav>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-border-dark cursor-pointer" data-alt="User avatar placeholder showing a generic silhouette" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBlNEzEcwOMhEhrdbV-Edbrutiugq25gxD45UmWcBlMUVo0fmWgeHcEr8DE3_BQFg-QnwfF7QvO-vc0KsUemSLtn0uOgDxnODTkcMTrySREFI-eiftCdv-pV605OxDD5sIR3V8FsKWxWtv02InRlW9XFpFVN5WgXPfaQFP4Yq7u2xBmAp7ywgtxcbc-OzvIYkDU1NYI2P_s00-AUXI6ZkPfMB4Suk3cv718v_tGMko50PQv5-kcMWwgsFoTC1IFp4kNyEs-0ayLe-Fw");'>
+</div>
+</div>
+</header>
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 md:px-40 flex flex-1 justify-center py-8">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1 gap-8">
+<!-- Profile Header -->
+<div class="flex flex-col md:flex-row gap-6 items-center md:items-start md:justify-between p-4">
+<div class="flex flex-col md:flex-row gap-6 items-center">
+<div class="relative group">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-32 border-4 border-card-dark shadow-xl" data-alt="Profile picture of Hassan Benali, a middle-aged professional driver" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBJDT-NIit4Oqy4S3AbuPZfrbtngvS9L-sPneHMa7WLVeWkY4p-U4jiL-pX1meij-YfaJZiEdF_OjfOf5m7Ydz5EcqyjVQyg4T6YFcDgtkjio8QP9MAW_CETRlzBjpuo_FS7G1Z4wo2kgRo6lL5mdSpLNmHjTxIGeHwUSXsR5zO93QCya_OyK8toV9VqDqiL1VMZPOSNAx5yNH8hy8Gfk-zPmbAe1WjycKTvhdcCP_Dgir4VPhrvy5XqYmw4fnZrqzC8jrWpLFpq4St");'>
+</div>
+<div class="absolute bottom-1 right-1 bg-background-dark rounded-full p-1 border border-border-dark">
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1">verified</span>
+</div>
+</div>
+<div class="flex flex-col items-center md:items-start gap-1">
+<h1 class="text-white text-3xl font-bold leading-tight tracking-[-0.015em]">Hassan Benali</h1>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-0.5 text-sm font-medium text-primary ring-1 ring-inset ring-primary/20">
+                                        Verified Driver
+                                    </span>
+<span class="text-slate-400 text-sm font-normal">•</span>
+<span class="text-slate-400 text-sm font-normal flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                                        Casablanca, Morocco
+                                    </span>
+</div>
+<p class="text-slate-400 text-sm max-w-md text-center md:text-left mt-2">Specialized in refrigerated transport across the Euro-Maghreb corridor. Fluent in French, Arabic, and English.</p>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-5 bg-card-dark text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-border-dark transition-all border border-border-dark">
+<span class="truncate">Message</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-5 bg-primary text-background-dark text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-all">
+<span class="truncate">Book Shipment</span>
+</button>
+</div>
+</div>
+<!-- Stats & Score Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Trust Score Card (Centerpiece) -->
+<div class="lg:col-span-1 flex flex-col items-center justify-center bg-card-dark rounded-xl p-8 border border-border-dark relative overflow-hidden shadow-lg">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-9xl">verified_user</span>
+</div>
+<h3 class="text-slate-300 text-sm font-medium uppercase tracking-wider mb-6 z-10">Trust Score</h3>
+<!-- Gauge Visualization -->
+<div class="relative size-40 flex items-center justify-center mb-4 z-10">
+<!-- Outer Gradient Ring -->
+<div class="absolute inset-0 rounded-full gauge-circle transform -rotate-90"></div>
+<!-- Inner Circle Mask -->
+<div class="absolute inset-2 bg-card-dark rounded-full flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-yellow-500 text-3xl mb-1" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="text-4xl font-bold text-white tracking-tight">4.9</span>
+<span class="text-xs text-slate-400">out of 5</span>
+</div>
+</div>
+<p class="text-primary text-sm font-medium z-10 bg-primary/10 px-3 py-1 rounded-full">Top Rated Driver</p>
+</div>
+<!-- Key Stats -->
+<div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Stat 1 -->
+<div class="flex flex-col justify-center items-center gap-2 rounded-xl bg-card-dark border border-border-dark p-6 hover:border-primary/50 transition-colors">
+<div class="p-3 rounded-full bg-background-dark text-primary mb-1">
+<span class="material-symbols-outlined text-2xl">local_shipping</span>
+</div>
+<p class="text-white tracking-tight text-3xl font-bold leading-tight">124</p>
+<p class="text-slate-400 text-sm font-normal">Total Shipments</p>
+</div>
+<!-- Stat 2 -->
+<div class="flex flex-col justify-center items-center gap-2 rounded-xl bg-card-dark border border-border-dark p-6 hover:border-primary/50 transition-colors">
+<div class="p-3 rounded-full bg-background-dark text-green-400 mb-1">
+<span class="material-symbols-outlined text-2xl">check_circle</span>
+</div>
+<p class="text-white tracking-tight text-3xl font-bold leading-tight">99%</p>
+<p class="text-slate-400 text-sm font-normal">Success Rate</p>
+</div>
+<!-- Stat 3 -->
+<div class="flex flex-col justify-center items-center gap-2 rounded-xl bg-card-dark border border-border-dark p-6 hover:border-primary/50 transition-colors">
+<div class="p-3 rounded-full bg-background-dark text-purple-400 mb-1">
+<span class="material-symbols-outlined text-2xl">calendar_month</span>
+</div>
+<p class="text-white tracking-tight text-3xl font-bold leading-tight">2022</p>
+<p class="text-slate-400 text-sm font-normal">Member Since</p>
+</div>
+<!-- Detailed Metric Bar (Full Width across 3 stats in lg view, or stacked) -->
+<div class="md:col-span-3 bg-card-dark rounded-xl border border-border-dark p-6 flex flex-col justify-center">
+<div class="flex justify-between items-center mb-2">
+<span class="text-slate-300 text-sm font-medium">On-Time Delivery Rate</span>
+<span class="text-primary font-bold">98.5%</span>
+</div>
+<div class="w-full bg-background-dark rounded-full h-2.5">
+<div class="bg-primary h-2.5 rounded-full" style="width: 98.5%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Reviews Section -->
+<div class="flex flex-col gap-4 pt-4">
+<div class="flex items-center justify-between px-2">
+<h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em]">Recent Reviews</h2>
+<a class="text-primary text-sm font-medium hover:underline" href="#">View all</a>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Review 1 -->
+<div class="group flex flex-col sm:flex-row gap-4 p-5 rounded-xl bg-card-dark border border-border-dark hover:bg-[#203036] transition-colors">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-12 shrink-0 border border-border-dark" data-alt="Avatar of review author Jean-Pierre" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBe_WtqZ2Gc0C0WEDMfRZuiMBy122T7AGeny1El8tf2wxi52guKFkVOyNEi8CJrzul51vsAQD1U5PZFg-z4PJsab_IhupcxNr78pIZnQgBd4BMCl2qQiC9QEgFgFU4Ui7Qp2LVQQLmla8Ky88KXHZAhUvj0wO9G4o0SBH1wtdEYg3mSXIWHBioukG63lZcztUAdPmEl2m2ZkKqIhR80eLptn3yn7-BjxRkbqdCiM_B8z_Axz1f7PkIIBRqyRDGA22BZw3z_aig1O9or");'>
+</div>
+<div class="flex flex-col flex-1 gap-1">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<h4 class="text-white font-semibold text-base">Jean-Pierre Dubois</h4>
+<span class="text-slate-500 text-xs">2 days ago • Logistics Manager</span>
+</div>
+<div class="flex items-center gap-1 mb-1">
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+</div>
+<p class="text-slate-300 text-sm leading-relaxed">"Very professional and fast. Hassan handled the customs clearance documents perfectly. The goods arrived in Paris ahead of schedule."</p>
+</div>
+</div>
+<!-- Review 2 -->
+<div class="group flex flex-col sm:flex-row gap-4 p-5 rounded-xl bg-card-dark border border-border-dark hover:bg-[#203036] transition-colors">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-12 shrink-0 border border-border-dark" data-alt="Avatar of review author Elena" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDZjvZhts7GpY4rVrOtFNK8J6A5bAoTkXDv2qBVgFB0-niBv4loDhrGfX0kOBSdJwE2_JEIdkKOoycnnZUnBmX4jXxoj65cRbA6GP7LwKjIKxfS-s6AWYRosZpAyO_WgJtmRTawov9CdWjbWRj65AeoK51LTSik1Z74TMk5tVJ0S4cJ9OQdCCPNfwvw2-XOnEFCYgXuxp2L0ZIH5lq-fuVr5s7lFlS3Nva1tHpZnZfpxCL4YOZP0JNKAR31HVLEnKqZbSheRCDLaC7J");'>
+</div>
+<div class="flex flex-col flex-1 gap-1">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<h4 class="text-white font-semibold text-base">Elena Rossi</h4>
+<span class="text-slate-500 text-xs">1 week ago • Supply Chain Lead</span>
+</div>
+<div class="flex items-center gap-1 mb-1">
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+</div>
+<p class="text-slate-300 text-sm leading-relaxed">"Great communication throughout the journey from Tangier to Madrid. The temperature logs were perfect for our perishable goods."</p>
+</div>
+</div>
+<!-- Review 3 -->
+<div class="group flex flex-col sm:flex-row gap-4 p-5 rounded-xl bg-card-dark border border-border-dark hover:bg-[#203036] transition-colors">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-12 shrink-0 border border-border-dark" data-alt="Avatar of review author Omar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBpYVTWfxertWdLOT3p9dPJT4toRqX6LNBiGhyE7jBHetablGnUV-RK5cxn8jwu2WVeN6R93IWQ0fSi-3PYlGinfFWKmfJIV_1Bz1aNqmaJU56fQdC3DQMvMi8LnccPflnHNYBgi9XhPD__smmQqgUCmaUEE9SKyXQvlkPtX1pPHDpTojLir5Utp3j2nrRcM5hcOujZOfaF8yWuM4N8XB60yQl3dDEUWTWKur539iYcsFp786VxoL8iI7RTm-A8NCBRtk0NSunbqOTf");'>
+</div>
+<div class="flex flex-col flex-1 gap-1">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<h4 class="text-white font-semibold text-base">Omar El-Fassi</h4>
+<span class="text-slate-500 text-xs">2 weeks ago • Freight Forwarder</span>
+</div>
+<div class="flex items-center gap-1 mb-1">
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-slate-600 text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+</div>
+<p class="text-slate-300 text-sm leading-relaxed">"Reliable service. Slight delay at the border, but not the driver's fault. Would recommend for Atlas Connect routes."</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

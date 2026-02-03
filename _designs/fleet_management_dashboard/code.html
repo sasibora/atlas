@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Atlas Connect - Fleet Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00bdd6",
+                        "primary-dark": "#009ac0",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0D1619",
+                        "card-dark": "#1A262B",
+                        "status-success": "#10B981", // Emerald
+                        "status-warning": "#F59E0B", // Orange
+                        "status-idle": "#64748B", // Slate
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for dark theme consistency */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0D1619;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2D3E46;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3F525C;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-hidden h-screen flex">
+<!-- Left Navigation Sidebar -->
+<aside class="hidden lg:flex flex-col w-64 h-full bg-card-dark border-r border-slate-800">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-gradient-to-br from-primary to-blue-600 rounded-xl size-10 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-primary/20">
+                A
+            </div>
+<div class="flex flex-col">
+<h1 class="text-white text-base font-bold leading-tight tracking-tight">Atlas Connect</h1>
+<p class="text-primary text-xs font-medium">Logistics Platform</p>
+</div>
+</div>
+<nav class="flex-1 px-4 py-4 space-y-2 overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary/10 text-primary rounded-lg transition-colors border border-primary/20" href="#">
+<span class="material-symbols-outlined text-[20px] fill-1">local_shipping</span>
+<span class="text-sm font-bold">Fleet Status</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">groups</span>
+<span class="text-sm font-medium">Drivers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">map</span>
+<span class="text-sm font-medium">Live Map</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">bar_chart</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">receipt_long</span>
+<span class="text-sm font-medium">Invoices</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-800">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+<div class="flex items-center gap-3 px-4 py-3 mt-2">
+<div class="size-8 rounded-full bg-slate-700 bg-cover bg-center" data-alt="User profile picture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAKE5Bz3_GJ5WgQApyJPHeDaXEid4Po3I-iJdLT3Mgi0UHEzf8c6fPXZeCWub_l2uJ4xpErwdcixsu4f4bkvMMIx8LsND-r4Gil8FMuqvFVV9u0dHwprny7u7qjSwcwkyyXFEcs7irlYIwNdkxlGontHkUR5YBQgA6aWjWE2l4Kt8nX6RL4ITMa0fwyuSZ08b3zzxgCywW-YFJyKvyY_Qq0Tr1jqhINGNXiOPyLR-5ARbr2AgIxpz8W5SWSAWmvPGMmfH31o4B953uB');"></div>
+<div class="flex flex-col">
+<p class="text-white text-xs font-semibold">Alex Morgan</p>
+<p class="text-slate-500 text-[10px]">Fleet Manager</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Header -->
+<header class="w-full h-20 px-8 flex items-center justify-between border-b border-white/5 bg-background-dark/80 backdrop-blur-md sticky top-0 z-20">
+<div>
+<h2 class="text-2xl font-black text-white tracking-tight">Fleet Management</h2>
+<p class="text-slate-400 text-sm">Real-time overview of vehicle status and fleet performance.</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="size-10 rounded-full bg-card-dark border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-primary/50 transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center gap-2 bg-primary hover:bg-primary-dark text-background-dark text-sm font-bold px-5 py-2.5 rounded-lg transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span>Add Vehicle</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Content Area -->
+<div class="flex-1 overflow-y-auto p-8 scroll-smooth">
+<div class="max-w-[1600px] mx-auto flex flex-col gap-8">
+<!-- Stats Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Stat Card 1 -->
+<div class="bg-card-dark p-6 rounded-2xl border border-white/5 shadow-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">local_shipping</span>
+</div>
+<p class="text-slate-400 text-sm font-medium mb-1">Active Vehicles</p>
+<div class="flex items-baseline gap-3">
+<h3 class="text-3xl font-bold text-white">42</h3>
+<span class="text-emerald-400 text-xs font-bold bg-emerald-400/10 px-2 py-1 rounded-full">+2 this week</span>
+</div>
+<div class="w-full bg-slate-800 h-1 mt-4 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[85%] rounded-full"></div>
+</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-card-dark p-6 rounded-2xl border border-white/5 shadow-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">person</span>
+</div>
+<p class="text-slate-400 text-sm font-medium mb-1">Drivers on Road</p>
+<div class="flex items-baseline gap-3">
+<h3 class="text-3xl font-bold text-white">38</h3>
+<span class="text-emerald-400 text-xs font-bold bg-emerald-400/10 px-2 py-1 rounded-full">+5%</span>
+</div>
+<div class="w-full bg-slate-800 h-1 mt-4 rounded-full overflow-hidden">
+<div class="bg-status-warning h-full w-[70%] rounded-full"></div>
+</div>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-card-dark p-6 rounded-2xl border border-white/5 shadow-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">local_gas_station</span>
+</div>
+<p class="text-slate-400 text-sm font-medium mb-1">Fuel Efficiency</p>
+<div class="flex items-baseline gap-3">
+<h3 class="text-3xl font-bold text-white">12.5 <span class="text-lg font-normal text-slate-500">km/L</span></h3>
+<span class="text-emerald-400 text-xs font-bold bg-emerald-400/10 px-2 py-1 rounded-full">+1.2%</span>
+</div>
+<div class="w-full bg-slate-800 h-1 mt-4 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full w-[92%] rounded-full"></div>
+</div>
+</div>
+<!-- Stat Card 4 -->
+<div class="bg-card-dark p-6 rounded-2xl border border-white/5 shadow-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">payments</span>
+</div>
+<p class="text-slate-400 text-sm font-medium mb-1">Total Fleet Revenue</p>
+<div class="flex items-baseline gap-3">
+<h3 class="text-3xl font-bold text-white">$124.5k</h3>
+<span class="text-emerald-400 text-xs font-bold bg-emerald-400/10 px-2 py-1 rounded-full">+15%</span>
+</div>
+<div class="w-full bg-slate-800 h-1 mt-4 rounded-full overflow-hidden">
+<div class="bg-purple-500 h-full w-[65%] rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Main Grid & Sidebar Layout -->
+<div class="flex flex-col xl:flex-row gap-6">
+<!-- Vehicle Status Grid (Main Area) -->
+<div class="flex-1 flex flex-col gap-4">
+<div class="flex items-center justify-between pb-2">
+<h3 class="text-xl font-bold text-white">Vehicle Status</h3>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 rounded-lg bg-card-dark border border-white/10 text-xs font-medium text-white hover:border-primary/50 transition-colors">All</button>
+<button class="px-3 py-1.5 rounded-lg bg-transparent border border-transparent text-xs font-medium text-slate-400 hover:text-white transition-colors">In Transit</button>
+<button class="px-3 py-1.5 rounded-lg bg-transparent border border-transparent text-xs font-medium text-slate-400 hover:text-white transition-colors">Idle</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4">
+<!-- Vehicle Card 1 -->
+<div class="bg-card-dark rounded-xl border border-white/5 overflow-hidden hover:border-primary/30 transition-all group">
+<div class="h-32 w-full bg-cover bg-center relative" data-alt="White delivery truck on highway" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBeHuAptRelURt-EB84wrwGzi--uLVVP6Gb-5h1EfsJ33IUKSEI8xhr97x-rexz2zV8SthFKASVrmeMhfYjTYdr9G-1oo__XWrFo8a7Q-H5S0VJMEfySdsytV5UstYJa2-hOym8gCkwTnU7FNdV2ZbwUCiAEUdERXOEOtqmrPlRbedTQ6DF4h5OcLAM_SygOhmG9nXDnqOfvfnE6hZlF7ooeugH2nN0hCEeMDEcAlH-KrvNXc4RhNDfQhBKZNDvwwyQHQtW9pfHzdpI');">
+<div class="absolute inset-0 bg-gradient-to-t from-card-dark to-transparent"></div>
+<div class="absolute top-3 right-3">
+<span class="px-2 py-1 rounded bg-emerald-500/20 text-emerald-400 text-xs font-bold backdrop-blur-sm border border-emerald-500/20 flex items-center gap-1">
+<span class="size-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                            In Transit
+                                        </span>
+</div>
+</div>
+<div class="p-4 pt-2">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h4 class="text-white font-bold text-lg leading-tight">Mercedes Sprinter</h4>
+<p class="text-slate-500 text-xs uppercase tracking-wider font-semibold mt-1">Plate: 8292-XJ</p>
+</div>
+<button class="size-8 rounded-lg bg-white/5 hover:bg-primary/20 text-slate-400 hover:text-primary flex items-center justify-center transition-colors" title="View Map">
+<span class="material-symbols-outlined text-[18px]">near_me</span>
+</button>
+</div>
+<div class="flex items-center gap-3 pt-3 border-t border-white/5">
+<div class="size-8 rounded-full bg-cover bg-center" data-alt="Driver avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDRze0v3kIAjpA-Do1tllrX1J6_2w-p6wuIoBf2Q0P0A39pP939DXjbrzET1tijknQLkUOsYZxklTofvhb4ybpDvIwF_F2k4CVBbTWzuo2AJFROpCp2TOoS3eH_IM2yzpc8ARBnaq35b9hz9YCmOoePtH9ihbHS_6GyaFitj8zYGPGtZ5bcZutG1MbNoP-3_PPRMgIJLm7gJ1vKos3T2xN7-n1vXXk6wtgqiqmIKtT2xYURLXQ4TJUQieTcZlmQDo44Pj9FOwpVHOFW');"></div>
+<div class="flex flex-col">
+<span class="text-slate-300 text-sm font-medium">Ralph Edwards</span>
+<span class="text-slate-500 text-xs">Driver ID: #4421</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Vehicle Card 2 -->
+<div class="bg-card-dark rounded-xl border border-white/5 overflow-hidden hover:border-primary/30 transition-all group">
+<div class="h-32 w-full bg-cover bg-center relative" data-alt="Red semi-truck cabin" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuANzYSPUQQbyUdzjMuZG0GA_bOTh14e112XATwadZ-J1hm7mf-dfci_RZlSPCLTfo0fSIT7RBsAxLMuavRFquGKgdiI1W-VF2FjKUHyt09H2wuHjezY_lF9W2xHtLpA43YM9rl62OqY2xBHloe-b69rzP11kjW9miLBWiIL9EF35NioHr9wiy-hMaMRzvY3xXpIKXSCVesxpt6qlxcf2CdzG9e9N09y8c9mEY8voYk8p4D6yrd66VQzCHsSwgc2WMU8w5tyxikeDV_B');">
+<div class="absolute inset-0 bg-gradient-to-t from-card-dark to-transparent"></div>
+<div class="absolute top-3 right-3">
+<span class="px-2 py-1 rounded bg-orange-500/20 text-orange-400 text-xs font-bold backdrop-blur-sm border border-orange-500/20 flex items-center gap-1">
+<span class="size-1.5 rounded-full bg-orange-400"></span>
+                                            Maintenance
+                                        </span>
+</div>
+</div>
+<div class="p-4 pt-2">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h4 class="text-white font-bold text-lg leading-tight">Volvo FH16</h4>
+<p class="text-slate-500 text-xs uppercase tracking-wider font-semibold mt-1">Plate: 3321-AB</p>
+</div>
+<button class="size-8 rounded-lg bg-white/5 hover:bg-primary/20 text-slate-400 hover:text-primary flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[18px]">build</span>
+</button>
+</div>
+<div class="flex items-center gap-3 pt-3 border-t border-white/5">
+<div class="size-8 rounded-full bg-slate-700 flex items-center justify-center text-slate-400 text-xs">N/A</div>
+<div class="flex flex-col">
+<span class="text-slate-300 text-sm font-medium">Unassigned</span>
+<span class="text-slate-500 text-xs">Service Bay 4</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Vehicle Card 3 -->
+<div class="bg-card-dark rounded-xl border border-white/5 overflow-hidden hover:border-primary/30 transition-all group">
+<div class="h-32 w-full bg-cover bg-center relative" data-alt="Blue cargo truck" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBe2BgiC4TNiFyKteLEW2ikzqEDCMUE7DzTueUFafBFwjhBvU9cK0icE7tCvLdjsIj8Kc8CZqCsBZ8xNe_LldlZ2PtWZNGL_mWeUYqThxdfpqWFu8dBCehxWpokAYszwSJYQb4MD1esJIqq0tM8mq5cedCzPq-z7Ao1qdQDSliC7RnP6WqUrJdmxHuKh4oueRRcmn8S_ACPrpAfaaoCe3ORtc15J7LFCUoegUkqXILMUW-CH7dlbRxbhc2HK0WX45210RJn8BZlGUPD');">
+<div class="absolute inset-0 bg-gradient-to-t from-card-dark to-transparent"></div>
+<div class="absolute top-3 right-3">
+<span class="px-2 py-1 rounded bg-emerald-500/20 text-emerald-400 text-xs font-bold backdrop-blur-sm border border-emerald-500/20 flex items-center gap-1">
+<span class="size-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                            In Transit
+                                        </span>
+</div>
+</div>
+<div class="p-4 pt-2">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h4 class="text-white font-bold text-lg leading-tight">Scania R500</h4>
+<p class="text-slate-500 text-xs uppercase tracking-wider font-semibold mt-1">Plate: 9982-LM</p>
+</div>
+<button class="size-8 rounded-lg bg-white/5 hover:bg-primary/20 text-slate-400 hover:text-primary flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[18px]">near_me</span>
+</button>
+</div>
+<div class="flex items-center gap-3 pt-3 border-t border-white/5">
+<div class="size-8 rounded-full bg-cover bg-center" data-alt="Driver avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA8evkSHFcqpy-KM6oQVLb0v9jhfVGwMQZumSqzGJ7PDhMEoL29eCEIPjNaE_XELVBxP0-j6qqYjGmrUKKGlu_SmhV4w2qBdgCiSVkW7chdPqaFQE61Cb4GXQvhw2B8lpN4_tqbNiyEKEszUMqRY8FNKPDWKmvpqAtnEQHl_dSvMzLYOqAMwF8Gl3L1mnfFnJiM1jtcve8g6B4GZBo4CXricFwmlz1S3h0EeYuyosvSJXiUqpgFoA9S276HL5wKAuA7kqq8ahjGpzlk');"></div>
+<div class="flex flex-col">
+<span class="text-slate-300 text-sm font-medium">Arlene McCoy</span>
+<span class="text-slate-500 text-xs">Driver ID: #1192</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Vehicle Card 4 -->
+<div class="bg-card-dark rounded-xl border border-white/5 overflow-hidden hover:border-primary/30 transition-all group">
+<div class="h-32 w-full bg-cover bg-center relative" data-alt="Modern logistics truck" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAH7dMYUJHTX7yiUQRfd0sCTMIJs3OxSweDWMyGtKZ3Gxf0plGIoWhSCbMEqlpP794jQzLvB-FjX3_ni_stJwTsm3i9mPpIng1Hf3Shpq3AmErC-ZPuaYe43XT6_F-vVNLQJt9Yf74jCzkFD-CzS7UFvqLVu_Z43vsv0ehqX-gmepAKGl-ykBhGvGbVeEnkjMCkUrJp7VWppU-yUDKFpNc45zzcrUBYGKuDIIcMu4Z4q0n9f4bUmpd2neQRURQu6aq-lmvwEovACo7O');">
+<div class="absolute inset-0 bg-gradient-to-t from-card-dark to-transparent"></div>
+<div class="absolute top-3 right-3">
+<span class="px-2 py-1 rounded bg-slate-700/50 text-slate-300 text-xs font-bold backdrop-blur-sm border border-slate-600/50 flex items-center gap-1">
+<span class="size-1.5 rounded-full bg-slate-400"></span>
+                                            Idle
+                                        </span>
+</div>
+</div>
+<div class="p-4 pt-2">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h4 class="text-white font-bold text-lg leading-tight">MAN TGX</h4>
+<p class="text-slate-500 text-xs uppercase tracking-wider font-semibold mt-1">Plate: 1123-PO</p>
+</div>
+<button class="size-8 rounded-lg bg-white/5 hover:bg-primary/20 text-slate-400 hover:text-primary flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+</button>
+</div>
+<div class="flex items-center gap-3 pt-3 border-t border-white/5">
+<div class="size-8 rounded-full bg-cover bg-center" data-alt="Driver avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBfwPtcfL1I0pJBDHyGJSLoON4phdeA0LOxNiQE4sMC3YB1xMKCZVlkX8lhboHXXCTANfCCeE0Ayug0_Pc-vxVHQicBdUJ8ZFmGRVWEOMOs6_yEgcFDIth76b2z7U7IX-9g9S1T-Z599sKmJnbGNYPPRe5ubNLQYG1Lw6nOKlwwD-juOLQPl9fRlpW9eN0Cy89xMj-5lUOQeb6qob4uSLsH5c4mdpmc3uELgcCLJsUNFODne9smkXEvmOGBit9pYCIGT5bJs_Vn7mkN');"></div>
+<div class="flex flex-col">
+<span class="text-slate-300 text-sm font-medium">Wade Warren</span>
+<span class="text-slate-500 text-xs">Driver ID: #8832</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Vehicle Card 5 -->
+<div class="bg-card-dark rounded-xl border border-white/5 overflow-hidden hover:border-primary/30 transition-all group">
+<div class="h-32 w-full bg-cover bg-center relative" data-alt="Yellow truck on road" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDnSO8XvyUtMrCVSwt36JqEa4BKIZ2a_pF-efsuq2QlAT3Iga565mhAdEB0uwZDaoLRABCIcsZRjmZVm_3NE7Or3l3BZgZzeiQEc0FrCrR9ZvMp4Q0wByHdsbDzoodIdiDhDqtEgv8yXn7OH-Tt0tuP4E4nQg7aiOyfhuUmOuBzK6FE5pGCm9UAEazW-lolqBw0x72jWYpFTuY0sZ5qwzNIAM1rxqoz5fIPE5NV4qVham42WjAEWV0PSarf4WrbtX0-KzpETkYKOkCN');">
+<div class="absolute inset-0 bg-gradient-to-t from-card-dark to-transparent"></div>
+<div class="absolute top-3 right-3">
+<span class="px-2 py-1 rounded bg-emerald-500/20 text-emerald-400 text-xs font-bold backdrop-blur-sm border border-emerald-500/20 flex items-center gap-1">
+<span class="size-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                            In Transit
+                                        </span>
+</div>
+</div>
+<div class="p-4 pt-2">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h4 class="text-white font-bold text-lg leading-tight">DAF XF</h4>
+<p class="text-slate-500 text-xs uppercase tracking-wider font-semibold mt-1">Plate: 7765-TY</p>
+</div>
+<button class="size-8 rounded-lg bg-white/5 hover:bg-primary/20 text-slate-400 hover:text-primary flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[18px]">near_me</span>
+</button>
+</div>
+<div class="flex items-center gap-3 pt-3 border-t border-white/5">
+<div class="size-8 rounded-full bg-cover bg-center" data-alt="Driver avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAT8hUdBVwvw2_SDF_qc2yLJuQ4nFtjYqFSxIwl7h90U3EdPxJtIHMHckLBvPctQaQtAhEfEzLhu1Cz6Zdg9uG-o_t-m126s9RR2nykMLFpjzlb0P1akFSHDbts2DxSCLAkZxut1upaxg4TlUSW7yt-7OcaI4ox4tgCC-rBZfrpHZn8iuNpaSMRcQ-aVZyH6QpxiES-btBmR6RlS990l-8c7FoLzi1yDrtmBQbZUG5B_KnTWCFLmMMmTZdcYPDVW9dyykN1LgKCzio2');"></div>
+<div class="flex flex-col">
+<span class="text-slate-300 text-sm font-medium">Bessie Cooper</span>
+<span class="text-slate-500 text-xs">Driver ID: #2214</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Vehicle Card 6 -->
+<div class="bg-card-dark rounded-xl border border-white/5 overflow-hidden hover:border-primary/30 transition-all group">
+<div class="h-32 w-full bg-cover bg-center relative" data-alt="Blue Iveco truck" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCgGgUQkWwZlFP-5aMdAfLg0FRh7tq7ciT1dHjuV5sZ_suoCOHc7tIixKdXTnuW9fE1p_rVouDecW1yOuCgT7NAUIzB71Q0APJDBnJxsLIE8sPGRw2aEoG06XjW6jUMkxoN7483_tdxZjp5tDuZ8L4Wmsoexsui1JEdEoCcm2tvDbczp8pkiSfblIHmqE7ETFqaqlR-EXCLWpdjI6Jy22a1U7nnZ7oU6748Al0HyWYJYwP1crKJsPutWWLHFqhfmYtQZH7FH3XtcLWi');">
+<div class="absolute inset-0 bg-gradient-to-t from-card-dark to-transparent"></div>
+<div class="absolute top-3 right-3">
+<span class="px-2 py-1 rounded bg-emerald-500/20 text-emerald-400 text-xs font-bold backdrop-blur-sm border border-emerald-500/20 flex items-center gap-1">
+<span class="size-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                            In Transit
+                                        </span>
+</div>
+</div>
+<div class="p-4 pt-2">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h4 class="text-white font-bold text-lg leading-tight">Iveco S-Way</h4>
+<p class="text-slate-500 text-xs uppercase tracking-wider font-semibold mt-1">Plate: 4451-KL</p>
+</div>
+<button class="size-8 rounded-lg bg-white/5 hover:bg-primary/20 text-slate-400 hover:text-primary flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[18px]">near_me</span>
+</button>
+</div>
+<div class="flex items-center gap-3 pt-3 border-t border-white/5">
+<div class="size-8 rounded-full bg-cover bg-center" data-alt="Driver avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAyhmaUHDlxM3gGuYjXC6xk0QrqqqzitcAd8CRYP1WGE6Ohy-6BFPf8giwjOH45q5oKTJk_KFiA59ddF-LQWA4FE3XhAyEpDastjydXfY1UeBah4jT1ZVAgpIhKZ2htH_Rer7ER-4kUgZFKaPEQHAbBUIEgKYxkFhF9foAWYdrcJqaKtAZk2fI-FHqgW6aKRgHQe-JgaybGImrIMAvU4kZGAFzCGWdz7mR2N-zuDLg9RIIQeAjSYFig_Sc5CZWfZOoRv4n7RvonKHG-');"></div>
+<div class="flex flex-col">
+<span class="text-slate-300 text-sm font-medium">Marvin McKinney</span>
+<span class="text-slate-500 text-xs">Driver ID: #9901</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar: Driver Availability -->
+<div class="w-full xl:w-80 flex-shrink-0 flex flex-col gap-4">
+<div class="flex items-center justify-between pb-2">
+<h3 class="text-xl font-bold text-white">Driver Availability</h3>
+<button class="text-primary text-sm font-medium hover:underline">View All</button>
+</div>
+<div class="bg-card-dark rounded-xl border border-white/5 p-4 flex flex-col gap-4">
+<!-- Driver Item 1 -->
+<div class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="size-10 rounded-full bg-cover bg-center" data-alt="Driver headshot" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA467Za4mJYcRW7iL_qAAOJMWobxtLU5l-4d-FWQEMdbgZwBUsID-ig7SC0dnzNcJK8RGfhHq0kQM549p5phUE9gglNByGwM5BFg05vg0oALyMeHlKhN3pi0e7WJcR-Rkmx_MK_TMwq8qG58UP9NyydBJ_wtbn0dV_LacyIMpwIWX4X_OEWUXlBtS3hNpeKkwFvmsEEljGWl487uZBUHKbGZcXj-JjczbDdAqeEBNMwax4mE0pWLmTEiZtg7qHiEFlSvXO1egnMaToE');"></div>
+<span class="absolute bottom-0 right-0 size-2.5 bg-emerald-500 border-2 border-card-dark rounded-full"></span>
+</div>
+<div class="flex flex-col">
+<span class="text-white text-sm font-semibold group-hover:text-primary transition-colors">Savannah Nguyen</span>
+<span class="text-slate-500 text-xs">Available</span>
+</div>
+</div>
+<div class="flex items-center gap-1 bg-white/5 px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-yellow-500 text-[14px] fill-1">star</span>
+<span class="text-white text-xs font-bold">4.9</span>
+</div>
+</div>
+<!-- Driver Item 2 -->
+<div class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="size-10 rounded-full bg-cover bg-center" data-alt="Driver headshot" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA4i0oQ2gF-Pgw3lZCLqe71On7zQdlzPU2e9Ks1S5CMcnm77TTKi_dYOQKHyZYWRwlgCxl9pkZsAJlJRB0kIh368KyfZ6d2kd6QcMllJkY3lgn1XRPtlzU1GaY06RDYn4CILypRowJ_-gYr3kRDM2SotmLekh5vlfc-w1ZseyBLOD5vzx1ChBzbyLWTZyPo7YOqjCPLT0cDU7E5ahFImTsBYAfamBkXXlwP_03WR8ETO4_zCKdF19q_SyvZ7GOFrnWg2DFBC4styDIe');"></div>
+<span class="absolute bottom-0 right-0 size-2.5 bg-slate-500 border-2 border-card-dark rounded-full"></span>
+</div>
+<div class="flex flex-col">
+<span class="text-white text-sm font-semibold group-hover:text-primary transition-colors">Guy Hawkins</span>
+<span class="text-slate-500 text-xs">Resting</span>
+</div>
+</div>
+<div class="flex items-center gap-1 bg-white/5 px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-yellow-500 text-[14px] fill-1">star</span>
+<span class="text-white text-xs font-bold">4.8</span>
+</div>
+</div>
+<!-- Driver Item 3 -->
+<div class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="size-10 rounded-full bg-cover bg-center" data-alt="Driver headshot" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBeqQK6YDoPBqSQIdYtNGFYYYgePO8Y4dH-1vQ086RMlkTEQrJiYoazLd1WY4Y7Veu25fMiKN84ptztjnjzLkGgddrv1-5NL309WfJFi_IHLWWrgVWI69sXHmnyez4S1hk5nrE2QLuvoRUQ0bfAtGnCZ3MdPmE9jLY12hLvA7DEXRcoMiML-6px6D19n-xlm9iXGBErTUcLEDxkxtWewANa6xgKcjsAB8uuImt5zRLiO3gBP6WAAK6oDYQgPPvak51jBNKxMQfiyO98');"></div>
+<span class="absolute bottom-0 right-0 size-2.5 bg-orange-500 border-2 border-card-dark rounded-full"></span>
+</div>
+<div class="flex flex-col">
+<span class="text-white text-sm font-semibold group-hover:text-primary transition-colors">Leslie Alexander</span>
+<span class="text-slate-500 text-xs">On Route</span>
+</div>
+</div>
+<div class="flex items-center gap-1 bg-white/5 px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-yellow-500 text-[14px] fill-1">star</span>
+<span class="text-white text-xs font-bold">5.0</span>
+</div>
+</div>
+<!-- Driver Item 4 -->
+<div class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="size-10 rounded-full bg-cover bg-center" data-alt="Driver headshot" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBCT1IDJbVbcQ39iMP0S5OulBaUIcGTzOBPVTbM1fSpv58edyBVqxed9-m0j3AvDH2Bl7qz2I9fElEdqc5PlhnJpIlFd9RV662FqKzAGn1qqUD5BtWjoi4x-D9M9R-_2vByQ_Cc0s3qo-FRNmHhRCQWaUwgkQcabr_CjXXOpvwMuH-WRQAxGSlafSjXTpLVjiUS2za_AFz-THtpxfKcfB-k9m-6E783ig4YxOn8Ce0UzYpRjvwYijvBBDmCTTfXYzzIg2VCXqRj88Jf');"></div>
+<span class="absolute bottom-0 right-0 size-2.5 bg-emerald-500 border-2 border-card-dark rounded-full"></span>
+</div>
+<div class="flex flex-col">
+<span class="text-white text-sm font-semibold group-hover:text-primary transition-colors">Floyd Miles</span>
+<span class="text-slate-500 text-xs">Available</span>
+</div>
+</div>
+<div class="flex items-center gap-1 bg-white/5 px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-yellow-500 text-[14px] fill-1">star</span>
+<span class="text-white text-xs font-bold">4.7</span>
+</div>
+</div>
+<!-- Driver Item 5 -->
+<div class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="size-10 rounded-full bg-cover bg-center" data-alt="Driver headshot" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAvlQpWRrHGm7sWchrqR_HKWeh1tjmKj2AUJMwJHWcX6Ux-_HH2AD16ezztGWWwt1npiiCNoQ5roKZv08IIQyMa7vwgZXph-XTWH2FLq4t_N8hLUDL-uP2DuExvGFnTYZpZMSpRSPbtTAOFWUc8HdfNDT-pX13z22RiHC2lJZtLuyfXjMoElPscye9NhFMeSpUr9WVAXnI5fspwBoXfyfspOe_9tY2qFHi4NEkBhZSvpv2TdErBj3D0URTTSX_gEq2TkduLtV1uXsiY');"></div>
+<span class="absolute bottom-0 right-0 size-2.5 bg-orange-500 border-2 border-card-dark rounded-full"></span>
+</div>
+<div class="flex flex-col">
+<span class="text-white text-sm font-semibold group-hover:text-primary transition-colors">Kristin Watson</span>
+<span class="text-slate-500 text-xs">On Route</span>
+</div>
+</div>
+<div class="flex items-center gap-1 bg-white/5 px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-yellow-500 text-[14px] fill-1">star</span>
+<span class="text-white text-xs font-bold">4.9</span>
+</div>
+</div>
+</div>
+<!-- Mini Map Preview (Optional fill for sidebar) -->
+<div class="bg-card-dark rounded-xl border border-white/5 h-48 w-full relative overflow-hidden group">
+<div class="absolute inset-0 bg-cover bg-center opacity-60 group-hover:opacity-80 transition-opacity" data-location="Europe Map" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAlEmTStAxdS30y7wx6Umoq6Gq2BNngSP5u0svWmwO1lfjxOzQBRt0M3nMxdt3b7eTKRTCx-Jrwc7IMyLclGH1svOev1Hk-zlnkZnKChSNDgpM2aPvfHmpO4P98SZaeKk6yZ-Igr921mrEPoE6Jkn2BmpTq4AvEVbkrZVCo5gWpYd7q8vKh_AYHHpS6Kkl0H6BhWf8Etk_WJ9j1lIJOSoFvC0SrbMt5mQHY9ErmKAtUhre5X-xt7yer4WHg3W3iESm-Kwo6lVMp9N5G');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-card-dark via-transparent to-transparent"></div>
+<div class="absolute bottom-3 left-3">
+<p class="text-white font-bold text-sm">Live Fleet Map</p>
+<p class="text-primary text-xs">View all 42 vehicles</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

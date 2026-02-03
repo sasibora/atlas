@@ -1,0 +1,104 @@
+{
+    "Hero": {
+        "title": "Send parcels between Europe & Morocco with <span class='text-primary text-glow'>Trust</span>",
+        "subtitle": "Connecting individuals and transport professionals for secure, reliable, and transparent cross-border logistics. Real-time tracking included.",
+        "senderBtn": "I'm a Sender",
+        "driverBtn": "I'm a Driver"
+    },
+    "Navigation": {
+        "dashboard": "Dashboard",
+        "shipments": "Shipments",
+        "wallet": "Wallet",
+        "login": "Log In",
+        "signup": "Sign Up"
+    },
+    "Dashboard": {
+        "title": "Driver Dashboard",
+        "welcome": "Welcome back, get ready for your next delivery.",
+        "walletBalance": "Wallet Balance",
+        "pendingRequests": "Pending Requests",
+        "urgentPickups": "Urgent pick-ups nearby",
+        "completedJobs": "Completed Jobs",
+        "last30Days": "Last 30 days",
+        "manifests": "Manifests",
+        "viewAll": "View All",
+        "topUp": "Top Up",
+        "activeRoutes": "Active Routes",
+        "visualiseJourney": "Visualise your upcoming journey"
+    },
+    "Wallet": {
+        "title": "Wallet & Transaction History",
+        "subtitle": "Manage your earnings, top-ups, and payouts.",
+        "availableBalance": "Available Balance",
+        "vsLastWeek": "vs. last week",
+        "topUp": "Top Up",
+        "withdraw": "Withdraw",
+        "recentTransactions": "Recent Transactions",
+        "last30Days": "Last 30 Days",
+        "filter": "Filter",
+        "export": "Export",
+        "table": {
+            "type": "Transaction Type",
+            "date": "Date & Time",
+            "details": "Route / Details",
+            "amount": "Amount"
+        },
+        "types": {
+            "payout": "Payout",
+            "shipmentPayment": "Shipment Payment",
+            "topup": "Top-up",
+            "commission": "Commission"
+        }
+    },
+    "Profile": {
+        "verifiedDriver": "Verified Driver",
+        "location": "Casablanca, Morocco",
+        "bio": "Specialized in refrigerated transport across the Euro-Maghreb corridor. Fluent in French, Arabic, and English.",
+        "message": "Message",
+        "bookShipment": "Book Shipment",
+        "trustScore": "Trust Score",
+        "outOf5": "out of 5",
+        "topRated": "Top Rated Driver",
+        "stats": {
+            "shipments": "Total Shipments",
+            "successRate": "Success Rate",
+            "memberSince": "Member Since"
+        },
+        "metrics": {
+            "onTime": "On-Time Delivery Rate"
+        },
+        "reviews": {
+            "title": "Recent Reviews",
+            "viewAll": "View all"
+        }
+    },
+    "Sender": {
+        "title": "Find Your <span class='text-primary text-glow'>Shipment</span>",
+        "search": {
+            "from": "From",
+            "to": "To",
+            "date": "Date",
+            "btn": "Search",
+            "placeholderFrom": "Pickup Location",
+            "placeholderTo": "Destination",
+            "placeholderDate": "Select Date"
+        },
+        "results": {
+            "title": "Available Drivers & Manifests",
+            "verified": "Verified",
+            "pro": "Pro",
+            "fleet": "Fleet",
+            "trips": "trips",
+            "pickup": "Pickup",
+            "dropoff": "Dropoff",
+            "offerPrice": "Offer Price",
+            "bookNow": "Book Now",
+            "emptyTitle": "Can't find a match?",
+            "emptyText": "Post your shipment request and let drivers come to you.",
+            "createRequest": "Create Request"
+        },
+        "map": {
+            "popularRoutes": "Popular Routes"
+        }
+    }
+}
