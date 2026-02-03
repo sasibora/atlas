@@ -34,13 +34,18 @@ export default function DriverDashboard() {
             const { data: { user } } = await supabase.auth.getUser()
             if (user) {
                 setUserId(user.id)
-                // Load wallet for this user
                 try {
                     const data = await getWallet(user.id)
                     if (data) setWallet(data)
                 } catch (error) {
                     console.error("Failed to load wallet", error)
                 }
+            } else {
+                // Demo Mode Fallback
+                const demoId = 'demo-driver-id'
+                setUserId(demoId)
+                // Mock wallet data for demo
+                setWallet({ balance: 1540.50, currency: 'MAD' })
             }
         }
         loadData()

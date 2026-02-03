@@ -4,35 +4,49 @@ import { redirect } from 'next/navigation'
 export default async function DashboardPage({ params }: { params: Promise<{ locale: string }> }) {
     const supabase = await createClient()
     const { locale } = await params
+    const { cookies } = await import('next/headers') // Dynamic import to avoid static opt-out if not needed elsewhere
 
-    const { data: { user }, error } = await supabase.auth.getUser()
+    // CHECK FOR DEMO MODE
+    const cookieStore = await cookies()
+    const demoRole = cookieStore.get('demo_role')?.value
 
-    if (error || !user) {
+    let user = null
+    let role = null
+
+    if (demoRole) {
+        // Bypass Supabase Auth
+        user = { id: `demo-${demoRole.toLowerCase()}-id`, email: `demo-${demoRole.toLowerCase()}@test.com` }
+        role = demoRole
+    } else {
+        // Normal Auth Flow
+        const { data } = await supabase.auth.getUser()
+        user = data.user
+    }
+
+    if (!demoRole && (!user)) {
         redirect(`/${locale}/login`)
     }
 
-    // Fetch User Role
-    let role = null
-
-    // TEST CREDENTIALS BYPASS
-    // Forces specific roles based on email prefix (e.g. sender...@... -> SENDER)
-    // Works with ANY domain to bypass rate limits (e.g. sender.ali@gmail.com)
-    if (user.email) {
-        if (user.email.startsWith('sender')) role = 'SENDER'
-        else if (user.email.startsWith('driver')) role = 'DRIVER'
-        else if (user.email.startsWith('admin')) role = 'ADMIN'
-    }
-
-    // If not a test user, fetch from DB
+    // Fetch User Role (Only if not already in Demo Mode)
     if (!role) {
-        const { data: userData, error: userError } = await supabase
-            .from('users')
-            .select('role')
-            .eq('id', user.id)
-            .single() as { data: { role: 'SENDER' | 'DRIVER' | 'ADMIN' } | null, error: any }
+        // TEST CREDENTIALS BYPASS (Legacy Pattern Matching)
+        if (user?.email) {
+            if (user.email.startsWith('sender')) role = 'SENDER'
+            else if (user.email.startsWith('driver')) role = 'DRIVER'
+            else if (user.email.startsWith('admin')) role = 'ADMIN'
+        }
 
-        if (!userError && userData) {
-            role = userData.role
+        // DB Fallback
+        if (!role && user) {
+            const { data: userData, error: userError } = await supabase
+                .from('users')
+                .select('role')
+                .eq('id', user.id)
+                .single() as { data: { role: 'SENDER' | 'DRIVER' | 'ADMIN' } | null, error: any }
+
+            if (!userError && userData) {
+                role = userData.role
+            }
         }
     }
 
