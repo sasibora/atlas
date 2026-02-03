@@ -1,13 +1,14 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 
-export default async function DashboardPage({ params }: { params: { locale: string } }) {
+export default async function DashboardPage({ params }: { params: Promise<{ locale: string }> }) {
     const supabase = await createClient()
+    const { locale } = await params
 
     const { data: { user }, error } = await supabase.auth.getUser()
 
     if (error || !user) {
-        redirect(`/${params.locale}/login`)
+        redirect(`/${locale}/login`)
     }
 
     // Fetch User Role
@@ -20,15 +21,15 @@ export default async function DashboardPage({ params }: { params: { locale: stri
     if (userError || !userData) {
         // Handle error (e.g., profile not setup)
         console.error('User profile error:', userError)
-        redirect(`/${params.locale}/login`) // Fallback
+        redirect(`/${locale}/login`) // Fallback
     }
 
     // Redirect based on role
     if (userData.role === 'DRIVER') {
-        redirect(`/${params.locale}/driver/dashboard`)
+        redirect(`/${locale}/driver/dashboard`)
     } else if (userData.role === 'SENDER') {
-        redirect(`/${params.locale}/sender/dashboard`)
+        redirect(`/${locale}/sender/dashboard`)
     } else {
-        redirect(`/${params.locale}/`) // Default or Admin
+        redirect(`/${locale}/`) // Default or Admin
     }
 }
